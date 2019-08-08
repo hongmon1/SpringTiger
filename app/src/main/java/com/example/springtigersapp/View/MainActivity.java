@@ -1,4 +1,4 @@
-package com.example.springtigersapp;
+package com.example.springtigersapp.View;
 
 import android.os.Bundle;
 
