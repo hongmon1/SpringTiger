@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     //안녕예주야
     //안녕소현아
+    //안녕혜지야
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
