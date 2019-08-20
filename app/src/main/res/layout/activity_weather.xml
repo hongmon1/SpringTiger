@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/et_x"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="x좌표를 입력해보거라" />
+
+    <EditText
+        android:id="@+id/et_y"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="y좌표를 입력해보거라" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="서버에서 받아온 Json 파싱"/>
+    <TextView
+        android:id="@+id/tv_parsing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="변환 결과값"/>
+</LinearLayout>
