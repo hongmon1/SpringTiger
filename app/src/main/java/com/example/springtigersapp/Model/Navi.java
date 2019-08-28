@@ -2,55 +2,61 @@ package com.example.springtigersapp.Model;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.springtigersapp.R;
 import com.google.android.material.snackbar.Snackbar;
 
 public class Navi extends AppCompatActivity {
-    EditText editText1, editText2;
-    Button button8;
+
+    EditText editText1;
 
     LocationManager locationManager;
     Location location;
 
     View view;
 
+    private final Context mContext;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navi);
-
-        editText1 = (EditText) findViewById(R.id.editText1);
-        editText2 = (EditText) findViewById(R.id.editText2);
-
-        button8 = (Button) findViewById(R.id.button8);
-
-
-        button8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              //  checkLocationService(v);    //핸드폰 gps키기
-                startLocationService(v);    //앱의 위치서비스 제공 허락
-            }
-        });
+    public Navi(Context context) {
+        this.mContext = context;
+     //   getLocation();
     }
 
 
+
+    public void turnGPSOn(){
+        locationManager = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Snackbar.make(view, "gps를 켜주세요", 10000).
+                    setAction("Ok", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                        }
+                    }).show();
+        }else{
+            Snackbar.make(view, "gps가 켜져있습니다", 4000).show();
+        }
+    }
+
+
+
     public void startLocationService(View v) {
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
         //FINE는 gps와 네트워크를 사용, COARSE는 네트워크만 사용(FINE가 더 정확)
         //checkSelfPermission()은 권한이 있는지 없는지 확인한다.
         //권한이 있다면 permission_granted를
@@ -90,7 +96,7 @@ public class Navi extends AppCompatActivity {
                         Manifest.permission.ACCESS_FINE_LOCATION
                 }, 0);
             }
-            //해당 권한이 승인상태라면
+         //해당 권한이 승인상태라면
         } else {
             Snackbar.make(v, "위치권한승인확인", Snackbar.LENGTH_SHORT).show();
             if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
