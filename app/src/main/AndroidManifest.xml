@@ -16,7 +16,7 @@
 
         <!--로고 엑티비티-->
         <activity
-            android:name=".View.SplashActivity"
+            android:name=".View.LogoActivity"
             android:theme ="@style/SplashTheme">
 
         </activity>
