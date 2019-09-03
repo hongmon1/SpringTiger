@@ -22,14 +22,14 @@ public class NaviActivity extends AppCompatActivity {
 
 
 
-        button8 = findViewById(R.id.button);
+   /*     button8 = findViewById(R.id.button);
         button8.setOnClickListener(new View.OnClickListener() {
             Navi navi = new Navi(NaviActivity.this);
             @Override
             public void onClick(View view) {
                 navi.turnGPSOn();
             }
-        });
+        });  */
     }
 
 }
