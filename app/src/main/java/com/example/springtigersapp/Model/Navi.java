@@ -150,4 +150,10 @@ public class Navi extends AppCompatActivity {
             }
         }
     }
+
+
+
+
+
+
 }
