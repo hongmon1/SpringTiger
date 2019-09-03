@@ -7,12 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class LogoActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        Intent mainIntent = new Intent(this, MainActivity.class);
-        startActivity(mainIntent);
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        Intent intent = new Intent(LogoActivity.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 }
