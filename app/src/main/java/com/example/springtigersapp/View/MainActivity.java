@@ -13,7 +13,7 @@ import com.example.springtigersapp.R;
 public class MainActivity extends AppCompatActivity {
 
     Button button;
-
+    Button button_search;
     //안녕예주야
     //안녕소현아
     //안녕혜지야
@@ -27,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Navi.class);
+                startActivity(intent);
+            }
+        });
+
+        button_search = findViewById(R.id.button_search);
+        button_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, DBActivity.class);
                 startActivity(intent);
             }
         });

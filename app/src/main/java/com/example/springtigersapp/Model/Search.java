@@ -1,4 +1,7 @@
 package com.example.springtigersapp.Model;
 
-public class Search {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Search extends AppCompatActivity {
+    
 }
