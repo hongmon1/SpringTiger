@@ -3,27 +3,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <kr.go.seoul.airquality.AirQualityTypeMini
+        android:id="@+id/mini"
+        android:layout_width="match_parent"
+        android:layout_height="251dp" />
 
-    <EditText
-        android:id="@+id/et_x"
+
+    <AutoCompleteTextView
+        android:id="@+id/autoGuName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="x좌표를 입력해보거라" />
-
-    <EditText
-        android:id="@+id/et_y"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="y좌표를 입력해보거라" />
+        android:gravity="center_vertical"
+        android:textColorHint="#555555"
+        android:text="구를 입력하세요."
+        android:completionThreshold="1"
+        />
 
     <Button
         android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="서버에서 받아온 Json 파싱"/>
+        android:text="해당 구에 대한 날씨 검색"
+        android:onClick="guWeatherSearch"
+        />
+
     <TextView
-        android:id="@+id/tv_parsing"
+        android:id="@+id/tv_pop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="변환 결과값"/>
+        android:text="강수확률(%) : " />
+    <TextView
+        android:id="@+id/tv_reh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="습도(%) : " />
+    <TextView
+        android:id="@+id/tv_pty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="강수형태 : " />
+    <TextView
+        android:id="@+id/tv_sky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="하늘상태 : " />
+    <TextView
+        android:id="@+id/tv_t3h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="기온(도씨) : " />
+    <TextView
+        android:id="@+id/tv_uuu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="풍속(동서) : " />
+    <TextView
+        android:id="@+id/tv_vvv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="풍속(남북) : " />
+    <TextView
+        android:id="@+id/tv_vec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="풍향(m/s) : " />
+
+
 </LinearLayout>

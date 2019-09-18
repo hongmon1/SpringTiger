@@ -2,11 +2,15 @@ package com.example.springtigersapp.View;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.springtigersapp.Model.Task;
 import com.example.springtigersapp.R;
 
 import java.io.BufferedReader;
@@ -15,191 +19,177 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import kr.go.seoul.airquality.AirQualityTypeMini;
 
 public class WeatherActivity extends AppCompatActivity {
-    EditText et_x;
-    EditText et_y;
+
+    private List<String> list;
     Button btn;
     TextView tv_parsing;
+    AutoCompleteTextView autoGuName;
+    com.example.test_ver2.Weather weather = com.example.test_ver2.Weather.getInstance();
+    AirQualityTypeMini mini;
+    String openAPIKey = "704f6576557968653132314f644a6f56";
+    String resultText = "결과";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        et_x = (EditText)findViewById(R.id.et_x);
-        et_y = (EditText)findViewById(R.id.et_y);
-        btn = (Button)findViewById(R.id.btn);
-        tv_parsing = (TextView)findViewById(R.id.tv_parsing);
+        list = new ArrayList<String>();
 
-        btn.setOnClickListener(myClickListener);
+        settingList();
+
+        autoGuName = (AutoCompleteTextView)findViewById(R.id.autoGuName);
+        btn = (Button)findViewById(R.id.btn);
+        tv_parsing = (TextView)findViewById(R.id.tv_pop);
+        mini = (AirQualityTypeMini)findViewById(R.id.mini);
+        mini.setOpenAPIKey(openAPIKey);
+        autoGuName.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, list));
+
+
+        try{
+            resultText = new Task().execute().get();
+        }
+        catch (InterruptedException e){
+
+            e.printStackTrace();
+        }
+        catch (ExecutionException e){
+            e.printStackTrace();
+        }
+        tv_parsing.setText(resultText);
     }
 
-    View.OnClickListener myClickListener = new View.OnClickListener(){
-        @Override
-        public void onClick(View v){
+    private void settingList(){
+        list.add("종로구");
+        list.add("중구");
+        list.add("용산구");
+        list.add("성동구");
+        list.add("광진구");
+        list.add("동대문구");
+        list.add("중랑구");
+        list.add("성북구");
+        list.add("강북구");
+        list.add("도봉구");
+        list.add("노원구");
+        list.add("은평구");
+        list.add("서대문구");
+        list.add("마포구");
+        list.add("양천구");
+        list.add("강서구");
+        list.add("구로구");
+        list.add("금천구");
+        list.add("영등포구");
+        list.add("동작구");
+        list.add("관악구");
+        list.add("서초구");
+        list.add("강남구");
+        list.add("송파구");
+        list.add("강동구");
+    }
 
-            switch (v.getId()){
+    public void guWeatherSearch(View view){
+        switch(autoGuName.getText().toString()){
+            case "종로구":
+            case "중구":
+                weather.setX(60);
+                weather.setY(127);
+                break;
 
-                case R.id.btn:
-                    /*try{
-                        url = url+"?ServiceKey="+serviceKey+
-                                "&base_date=20190820"+"&base_time=0500"+"&nx=60"+"&ny=127"
-                                +"&numOfRows=10"+"&PageNo=1"+"&_type=json";
+            case "용산구":
+                weather.setX(60);
+                weather.setY(126);
+                break;
 
-                        urlBuilder = new StringBuilder(url);
-                        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "="+serviceKey);
-                        urlBuilder.append("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode("20190820", "UTF-8"));
-                        urlBuilder.append("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode("0500", "UTF-8"));
-                        urlBuilder.append("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode(et_x.getText().toString(), "UTF-8"));
-                        urlBuilder.append("&" + URLEncoder.encode("ny","UTF-8") + "=" + URLEncoder.encode(et_y.getText().toString(), "UTF-8"));
-                        urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8"));
+            case "성동구":
+            case "동대문구":
+            case "성북구":
+                weather.setX(61);
+                weather.setY(127);
+                break;
 
-                        urlBuilder = new StringBuilder(url);
-                        URL url = new URL(urlBuilder.toString());
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setRequestMethod("GET");
-                        conn.setRequestProperty("Content-type", "application/json");
-                        BufferedReader rd;
-                        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-                            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                        } else {
-                            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                        }
-                        StringBuilder sb = new StringBuilder();
-                        String line;
-                        while ((line = rd.readLine()) != null) {
-                            sb.append(line);
-                        }
+            case "광진구":
+            case "송파구":
+            case "강동구":
+                weather.setX(62);
+                weather.setY(126);
+                break;
 
-                        System.out.println(sb.toString());
+            case "중랑구":
+                weather.setX(62);
+                weather.setY(128);
+                break;
 
-                        JSONArray jsonArray = new JSONArray(sb.toString());
-                        for(int i=0; i<jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            case "강북구":
+                weather.setX(61);
+                weather.setY(128);
+                break;
 
+            case "도봉구":
+            case "노원구":
+                weather.setX(61);
+                weather.setY(129);
+                break;
 
-                            pop = jsonObject.getString("POP"); //강수 확률
-                            reh = jsonObject.getString("REH"); //습도
-                            sky = jsonObject.getString("SKY"); //하늘 상태
-                            t3h = jsonObject.getString("T3H"); //3시간 기온
-                            tmn = jsonObject.getString("TMN"); //아침최저기온
-                            tmx = jsonObject.getString("TMX"); //낮최고기온
-                            wsd = jsonObject.getString("WSD"); //풍속
-                            tv_parsing.setText("" + pop + "\n"
-                                    + "" + reh + "\n"
-                                    + "" + sky + "\n"
-                                    + "" + t3h + "\n"
-                                    + "" + tmn + "\n"
-                                    + "" + tmx + "\n"
-                                    + "" + wsd );
-                        }
+            case "은평구":
+            case "서대문구":
+            case "마포구":
+                weather.setX(59);
+                weather.setY(127);
+                break;
 
-                        rd.close();
-                        conn.disconnect();
+            case "양천구":
+            case "강서구":
+            case "영등포구":
+                weather.setX(58);
+                weather.setY(126);
+                break;
 
-                    }
-                    catch(Exception e){
-                        e.printStackTrace();
-                    }   */
+            case "구로구":
+                weather.setX(58);
+                weather.setY(125);
+                break;
 
-                    try{
+            case "금천구":
+                weather.setX(59);
+                weather.setY(124);
+                break;
 
-                        tv_parsing.setText("버튼이 눌렷다");
-                        StringBuilder urlBuilder = new StringBuilder("http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData"); /*URL*/
-                        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=AlTCQWFRxBhZXn0EKDHdYjwuuTNzp98MYnQuP%2FMLcdYXI0r%2BjN%2FMqHWA6%2Btb0mId%2B%2FUHMlgyiYprl3mlI%2BbqrQ%3D%3D"); /*Service Key*/
-                        urlBuilder.append("&" + URLEncoder.encode("ServiceKey","UTF-8") + "=" + URLEncoder.encode("TEST_SERVICE_KEY", "UTF-8")); /*서비스 인증*/
-                        urlBuilder.append("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode("20190820", "UTF-8")); /*‘15년 12월 1일발표*/
-                        urlBuilder.append("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode("0500", "UTF-8")); /*05시 발표 * 기술문서 참조*/
-                        urlBuilder.append("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode("60", "UTF-8")); /*예보지점의 X 좌표값*/
-                        urlBuilder.append("&" + URLEncoder.encode("ny","UTF-8") + "=" + URLEncoder.encode("127", "UTF-8")); /*예보지점의 Y 좌표값*/
-                        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
-                        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-                        urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("xml", "UTF-8")); /*xml(기본값), json*/
-                        URL url = new URL(urlBuilder.toString());
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setRequestMethod("GET");
-                        conn.setRequestProperty("Content-type", "application/json");
-                        System.out.println("Response code: " + conn.getResponseCode());
-                        BufferedReader rd;
-                        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-                            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                        } else {
-                            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                        }
-                        StringBuilder sb = new StringBuilder();
-                        String line;
-                        while ((line = rd.readLine()) != null) {
-                            sb.append(line);
-                        }
-                        rd.close();
-                        conn.disconnect();
-                        System.out.println(sb.toString());
+            case "동작구":
+            case "관악구":
+                weather.setX(59);
+                weather.setY(125);
+                break;
 
-                            /*JSONArray jsonArray = new JSONArray(sb.toString());
-                            for(int i=0; i<jsonArray.length(); i++) {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-
-                                pop = jsonObject.getString("POP"); //강수 확률
-                                reh = jsonObject.getString("REH"); //습도
-                                sky = jsonObject.getString("SKY"); //하늘 상태
-                                t3h = jsonObject.getString("T3H"); //3시간 기온
-                                wsd = jsonObject.getString("WSD"); //풍속
-                                tv_parsing.setText("세팅" + pop + "\n"
-                                        + "" + reh + "\n"
-                                        + "" + sky + "\n"
-                                        + "" + t3h + "\n"
-                                        + "" + wsd );
-                            }
-                            */
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
-
-                    break;
-
-
-            }
+            case "서초구":
+                weather.setX(61);
+                weather.setY(125);
+                break;
+            case "강남구":
+                weather.setX(61);
+                weather.setY(126);
+                break;
 
         }
 
-    };
-
-    public void parsingWeather()throws IOException {
-
-
-
-        StringBuilder urlBuilder = new StringBuilder("http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=AlTCQWFRxBhZXn0EKDHdYjwuuTNzp98MYnQuP%2FMLcdYXI0r%2BjN%2FMqHWA6%2Btb0mId%2B%2FUHMlgyiYprl3mlI%2BbqrQ%3D%3D"); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("ServiceKey","UTF-8") + "=" + URLEncoder.encode("TEST_SERVICE_KEY", "UTF-8")); /*서비스 인증*/
-        urlBuilder.append("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode("20190820", "UTF-8")); /*‘15년 12월 1일발표*/
-        urlBuilder.append("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode("0500", "UTF-8")); /*05시 발표 * 기술문서 참조*/
-        urlBuilder.append("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode("60", "UTF-8")); /*예보지점의 X 좌표값*/
-        urlBuilder.append("&" + URLEncoder.encode("ny","UTF-8") + "=" + URLEncoder.encode("127", "UTF-8")); /*예보지점의 Y 좌표값*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("xml", "UTF-8")); /*xml(기본값), json*/
-        URL url = new URL(urlBuilder.toString());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
-        BufferedReader rd;
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        try{
+            resultText = new Task().execute().get();
         }
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        conn.disconnect();
-        System.out.println(sb.toString());
+        catch (InterruptedException e){
 
+            e.printStackTrace();
+        }
+        catch (ExecutionException e){
+            e.printStackTrace();
+        }
+        tv_parsing.setText(resultText);
+        resultText = "";
     }
 }

@@ -1,69 +1,110 @@
-package com.example.springtigersapp.Model;
+package com.example.test_ver2;
+
+import androidx.databinding.ObservableField;
 
 public class Weather {
-    String pop; //강수 확률
-    String reh; //습도
-    String sky; //하늘 상태
-    String t3h; //3시간 기온
-    String tmn; //아침최저기온
-    String tmx; //낮최고기온
-    String wsd; //풍속
+    private int x;
+    private int y;
+    private String guName;
 
-    //setter
-    public void setPop(String pop) {
-        this.pop = pop;
+    private String [] POP = new String[3];  //강수확률%
+    private String [] REH = new String[3];  //습도%
+    private String [] PTY = new String[3];  //강수형태 없음(0) 비(1) 진눈개비(2) 눈(3) 소나기(4)
+    private String [] SKY = new String[3];  //하늘상태 맑음(1) 구름많음(3) 흐림(4)
+    private String [] T3H = new String[3];  //3시간 기온 도씨
+    private String [] UUU = new String[3];  //풍속(동서) 동(+) 서(-)
+    private String [] VEC = new String[3];  //풍향 m/s
+    private String [] VVV = new String[3];  //풍속(남북) 북(+) 남(-)
+
+
+    private Weather(){
+        x = 60;
+        y = 127;
+        //종로구 기준
+    }
+    private static Weather weather = new Weather();
+
+    public static Weather getInstance(){
+        return weather;
     }
 
-    public void setReh(String reh) {
-        this.reh = reh;
+    public void setX(int x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
     }
 
-    public void setSky(String sky) {
-        this.sky = sky;
+    public void setPOP(String POP, int index) {
+        this.POP[index] = POP;
     }
 
-    public void setT3h(String t3h) {
-        this.t3h = t3h;
+    public void setREH(String REH, int index) {
+        this.REH[index] = REH;
     }
 
-    public void setTmn(String tmn) {
-        this.tmn = tmn;
+    public void setPTY(String PTY, int index) {
+        this.PTY[index] = PTY;
     }
 
-    public void setTmx(String tmx) {
-        this.tmx = tmx;
+    public void setSKY(String SKY, int index) {
+        this.SKY[index] = SKY;
     }
 
-    public void setWsd(String wsd) {
-        this.wsd = wsd;
+    public void setT3H(String t3H, int index) {
+        this.T3H[index] = t3H;
     }
 
-    //getter
-    public String getPop() {
-        return pop;
+    public void setUUU(String UUU, int index) {
+        this.UUU[index] = UUU;
     }
 
-    public String getReh() {
-        return reh;
+    public void setVEC(String VEC, int index) {
+        this.VEC[index] = VEC;
     }
 
-    public String getSky() {
-        return sky;
+    public void setVVV(String VVV, int index) {
+        this.VVV[index] = VVV;
     }
 
-    public String getT3h() {
-        return t3h;
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
     }
 
-    public String getTmn() {
-        return tmn;
+    public String getPOP(int index) {
+        return POP[index];
     }
 
-    public String getTmx() {
-        return tmx;
+    public String getREH(int index) {
+        return REH[index];
     }
 
-    public String getWsd() {
-        return wsd;
+    public String getPTY(int index) {
+        return PTY[index];
     }
+
+    public String getSKY(int index) {
+        return SKY[index];
+    }
+
+    public String getT3H(int index) {
+        return T3H[index];
+    }
+
+    public String getUUU(int index) {
+        return UUU[index];
+    }
+
+    public String getVEC(int index) {
+        return VEC[index];
+    }
+
+    public String getVVV(int index) {
+        return VVV[index];
+    }
+
+
 }
