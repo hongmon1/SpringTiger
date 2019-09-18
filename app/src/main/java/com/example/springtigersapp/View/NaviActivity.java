@@ -10,27 +10,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.springtigersapp.Model.Navi;
 import com.example.springtigersapp.R;
 
-public class MainActivity extends AppCompatActivity {
+public class NaviActivity extends AppCompatActivity {
 
-    Button button;
+    Button button1, button2, button3, button8;
+    Navi navi = new Navi(NaviActivity.this);
 
-    //안녕예주야
-    //안녕소현아
-    //안녕혜지야
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_navi);
 
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        button1 = findViewById(R.id.button1);
+        button2 = findViewById(R.id.button2);
+        button3 = findViewById(R.id.button3);
+        button8 = findViewById(R.id.button8);
+
+        button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NaviActivity.class);
-                startActivity(intent);
+                navi.turnGPSOn();
             }
         });
 
-
     }
+
+
 }

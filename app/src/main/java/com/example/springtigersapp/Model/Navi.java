@@ -4,11 +4,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -16,7 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.springtigersapp.R;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class Navi extends AppCompatActivity {
 
@@ -25,7 +35,10 @@ public class Navi extends AppCompatActivity {
     LocationManager locationManager;
     Location location;
 
+//    View view = findViewById(R.id.activity_navi);
     View view;
+
+    private GoogleMap map;
 
     private final Context mContext;
 
@@ -33,7 +46,6 @@ public class Navi extends AppCompatActivity {
         this.mContext = context;
      //   getLocation();
     }
-
 
 
     public void turnGPSOn(){
@@ -101,10 +113,10 @@ public class Navi extends AppCompatActivity {
             Snackbar.make(v, "위치권한승인확인", Snackbar.LENGTH_SHORT).show();
             if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                 location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                Snackbar.make(v, "위치가 뜹니다", Snackbar.LENGTH_SHORT).show();
+
             }else if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                Snackbar.make(v, "위치가 뜹니다", Snackbar.LENGTH_SHORT).show();
+
 
             }
         }
@@ -123,8 +135,16 @@ public class Navi extends AppCompatActivity {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
 
-            editText1.setText(latitude + "," + longitude);
+            Geocoder geocoder = new Geocoder(mContext);
+            List<Address> addr = null;
+            try{
+                List<Address> mResultList = geocoder.getFromLocation(latitude,longitude,1);
+                editText1.setText((CharSequence) mResultList);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
+
         public void onProviderDisabled(String provider){}
 
         public void onProviderEnabled(String provider){}
@@ -150,4 +170,11 @@ public class Navi extends AppCompatActivity {
             }
         }
     }
+
+   // @Override
+   // public void onMapReady(final GoogleMap googlemap){
+     //   map = googlemap;
+
+    //}
+
 }
