@@ -30,12 +30,10 @@ public class SearchActivity extends AppCompatActivity {
     private String id;
     private String name;
     private InfoClass item;
-    private String TAG;
 
     private SearchAdapter adapter;
     private DBOpenHelper mDbOpenHelper;
     private Cursor mCursor;
-  //  private static final String TAG = "db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +43,9 @@ public class SearchActivity extends AppCompatActivity {
         //action bar 없애기
         getSupportActionBar().hide();
 
+
         //리스트 생성
         arrlist = new ArrayList<InfoClass>();
-      //  strlist = new ArrayList<String>();
-        //리스트의 데이터를 2리스트에 복사(복사본 생성)
-        arrlist2 = new ArrayList<InfoClass>();
-        //strlist2 = new ArrayList<String>();
-        arrlist2.addAll(arrlist);
-        //strlist2.addAll(strlist);
 
 
       //  final String[] strlist = arrlist.toArray(new String[arrlist.size()]);
@@ -70,7 +63,17 @@ public class SearchActivity extends AppCompatActivity {
        // mDbOpenHelper.insertColumn("apple", "aa","bb","cc","dd");
        // mDbOpenHelper.insertColumn("bread", "ee","ff","gg","hh");
 
+
+
         doWhileCursorToArray();
+
+
+        //  strlist = new ArrayList<String>();
+        //리스트의 데이터를 2리스트에 복사(복사본 생성)
+        arrlist2 = new ArrayList<InfoClass>();
+        //strlist2 = new ArrayList<String>();
+        arrlist2.addAll(arrlist);
+        //strlist2.addAll(strlist);
 
         //검색어를 입력시 이벤트 리스너
         editText.addTextChangedListener(new TextWatcher() {
@@ -135,10 +138,10 @@ public class SearchActivity extends AppCompatActivity {
             //InfoClass에 입력된 값을 압력
             InfoClass info = new InfoClass();
 
-            //id = mCursor.getString(mCursor.getColumnIndex("recipe_id"));
-            //int ID = Integer.parseInt(id);
+            id = mCursor.getString(mCursor.getColumnIndex("_id"));
+            int ID = Integer.parseInt(id);
             name = mCursor.getString(mCursor.getColumnIndex("recipe_name"));
-            //item = new InfoClass(ID, name);
+            item = new InfoClass(ID, name);
             item = new InfoClass(name);
 
             arrlist.add(item);
