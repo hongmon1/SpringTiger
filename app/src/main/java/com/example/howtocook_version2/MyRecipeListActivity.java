@@ -77,7 +77,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
         while(mCursor.moveToNext()){
 
             cook_name = mCursor.getString(mCursor.getColumnIndex("myrecipe_name"));
-            cook_img = mCursor.getString(mCursor.getColumnIndex("myrecipe_img"));
+            cook_img = mCursor.getString(mCursor.getColumnIndex("myrecipe_image"));
 
             Log.d("dbTest", cook_name);
 
