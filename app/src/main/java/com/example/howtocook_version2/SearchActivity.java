@@ -66,8 +66,8 @@ public class SearchActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        mDbOpenHelper.insertColumn("apple", "aa","bb","cc","dd");
-        mDbOpenHelper.insertColumn("bread", "ee","ff","gg","hh");
+       // mDbOpenHelper.insertColumn("apple", "aa","bb","cc","dd");
+       // mDbOpenHelper.insertColumn("bread", "ee","ff","gg","hh");
 
         doWhileCursorToArray();
 

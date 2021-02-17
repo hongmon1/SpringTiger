@@ -38,7 +38,7 @@ public class SearchAdapter extends BaseAdapter{
 
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_listview, null);
+            convertView = inflater.inflate(R.layout.listview, null);
         }
         //화면에 대한 참조
         TextView textView = convertView.findViewById(R.id.label);

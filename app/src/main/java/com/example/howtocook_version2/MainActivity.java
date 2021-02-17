@@ -13,7 +13,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button home_btn, fav_btn, myrep_btn, search_btn;
+    Button home_btn, fav_btn, myrep_btn;
+    Button cate1, cate2, cate3, cate4, cate5;
     EditText editText;
     FloatingActionButton danbee_btn;
 
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         fav_btn = findViewById(R.id.fav_btn);
         myrep_btn = findViewById(R.id.myrep_btn);
         editText = findViewById(R.id.editText); //검색창
-
 
         home_btn.setEnabled(false);
         fav_btn.setOnClickListener(new View.OnClickListener() {
