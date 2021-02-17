@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -40,6 +41,9 @@ public class MyRecipeActivity extends AppCompatActivity {
     Button registerBtn;
     EditText idEt,nameEt,ingreEt,descEt;
 
+    private DBOpenHelper mDbOpenHelper;
+    private Cursor mCursor;
+    private static final String TAG1 = "TestDataBase";
 
     //private static final int REQUEST_CODE = 0;
     private static final String TAG = "blackjin";
@@ -91,19 +95,26 @@ public class MyRecipeActivity extends AppCompatActivity {
         ingreEt=(EditText)findViewById(R.id.register_ingre);
         descEt =(EditText)findViewById(R.id.register_desc);
 
+        mDbOpenHelper = new DBOpenHelper(this);
+        try {
+            mDbOpenHelper.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
                     Toast.makeText(MyRecipeActivity.this,"버튼눌림", Toast.LENGTH_SHORT).show();
                     String result;
-                    String id = idEt.getText().toString();
+                    //String id = idEt.getText().toString();
                     String name = nameEt.getText().toString();
                     String ingre = ingreEt.getText().toString();
                     String desc = descEt.getText().toString();
-                    String user_id = "1";
+                    //String user_id = "1";
                     String image = "비어있는 이미지";
-
+                    mDbOpenHelper.insertColumn(name,ingre, desc, image);
                 }catch (Exception e){
                     Log.i("DBtest","Error!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 }
@@ -376,5 +387,28 @@ public class MyRecipeActivity extends AppCompatActivity {
                 .check();
 
     }
+
+    private void doWhileCursorToArray() {
+
+        mCursor = null;
+        //DB에 있는 모든 컬럼을 가져옴
+        mCursor = mDbOpenHelper.getMyrepAllColumns();
+        //컬럼의 갯수 확인
+        Log.i(TAG, "Count = " + mCursor.getCount());
+
+        while (mCursor.moveToNext()) {
+            //InfoClass에 입력된 값을 압력
+
+            Log.d(TAG1, mCursor.getString(mCursor.getColumnIndex("name")));
+            CameraBtn.setText(mCursor.getString(mCursor.getColumnIndex("name")));
+            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("ingre")));
+            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("desc")));
+            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("image")));
+        }
+        //Cursor 닫기
+        mCursor.close();
+    }
+
+
 
 }
