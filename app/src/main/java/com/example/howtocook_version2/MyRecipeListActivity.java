@@ -1,5 +1,6 @@
 package com.example.howtocook_version2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -8,10 +9,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -80,7 +84,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
         myrec_add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DanbeeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyRecipeActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
             }
@@ -104,10 +108,59 @@ public class MyRecipeListActivity extends AppCompatActivity {
         }
 
         mCursor.close();
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showDeleteDialog(i);
+                return true;
+            }
+        });
     }
 
     protected void onPause(){
         super.onPause();
         overridePendingTransition(R.anim.right_to_left,R.anim.left_to_right);
+    }
+
+    private void showDeleteDialog(int index){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("삭제");
+        builder.setMessage("레시피를 삭제하시겠습니까?");
+        final int rep_index = index;
+
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mCursor = mDbOpenHelper.getMyrepAllColumns();
+                        mCursor.moveToPosition(rep_index);
+                        //delete db 하기
+
+                        String delete = mCursor.getString(1);
+
+                        boolean result = mDbOpenHelper.deleteMyrepColumn(delete);
+
+                        if(result){
+                            alist.remove(rep_index);
+                            listViewAdapter.notifyDataSetChanged();
+                            Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        mCursor.close();
+
+
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getApplicationContext(),"삭제 취소",Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        builder.show();
     }
 }

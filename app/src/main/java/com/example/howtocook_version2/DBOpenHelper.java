@@ -94,9 +94,16 @@ public class DBOpenHelper {
         return mDB.delete(Databases.CreateFavorite._TABLENAME,"_id="+id,null)>0;
     }
 
+
+
     //id로 Myrecip table에서 삭제
     public boolean deleteMyrepColumn(long id){
         return mDB.delete(Databases.CreateMyrep._TABLENAME,"_id="+id,null)>0;
+    }
+
+    //name으로 Myrecipe table에서 삭제
+    public boolean deleteMyrepColumn(String name){
+        return mDB.delete(Databases.CreateMyrep._TABLENAME,"myrecipe_name=?", new String[]{name})>0;
     }
 
     //id로 recipe table에서 삭제
