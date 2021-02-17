@@ -30,11 +30,12 @@ public class SearchActivity extends AppCompatActivity {
     private String id;
     private String name;
     private InfoClass item;
+    private String TAG;
 
     private SearchAdapter adapter;
     private DBOpenHelper mDbOpenHelper;
     private Cursor mCursor;
-    private static final String TAG = "db";
+  //  private static final String TAG = "db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
             @Override
             public void afterTextChanged(Editable editable) {
+                Log.i("tag","log0");
                 String text = editText.getText().toString();
                 search(text);
             }
@@ -99,20 +101,23 @@ public class SearchActivity extends AppCompatActivity {
     private void search(String charText) {
         // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
         arrlist.clear();
-
+        Log.i("tag","log");
         // 문자 입력이 없을때는 모든 데이터를 보여준다.
-        if (charText.length() == 0) {
-            arrlist.addAll(arrlist2);
-        }
+       if (charText.length() == 0) {
+           Log.i("tag","log2");
+           arrlist.addAll(arrlist2);
+       }
         // 문자 입력을 할때..
         else
         {
             // 리스트의 모든 데이터를 검색한다.
             for(int i = 0;i < arrlist2.size(); i++) {
+                Log.i("tag","log3");
                 // arraylist의 모든 데이터에 입력받은 단어(charText)가 포함되어 있으면 true를 반환한다.
                 //if (arrlist.get(i).toLowerCase().contains(charText))
                 if (arrlist2.get(i).name.contains(charText)) {          //@
                     // 검색된 데이터를 리스트에 추가한다.
+                   // Log.d("tag","log");
                     arrlist.add(arrlist2.get(i));
                 }
             }
