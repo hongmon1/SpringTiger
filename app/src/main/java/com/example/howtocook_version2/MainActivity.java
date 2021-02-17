@@ -23,6 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button home_btn, fav_btn, myrep_btn, search_btn;
     EditText editText;
+    FloatingActionButton danbee_btn;
 
     private DBOpenHelper mDbOpenHelper;
 
@@ -86,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        danbee_btn = findViewById(R.id.danbee_btn);
+        //단비 챗봇 플로팅 버튼
+        //클릭시 danbeeactivity로 전환
+        danbee_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DanbeeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
+            }
+        });
     }
 
     protected void onPause(){
