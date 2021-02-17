@@ -6,10 +6,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,12 +34,14 @@ public class SearchContentActivity extends AppCompatActivity {
     private String cook_ingre;
     private String cook_desc;
     private String cook_com;
+    private boolean check=false;
 
     ImageView vImgage;
     TextView vName;
     TextView vIngre;
     TextView vDesc;
     TextView vCom;
+    Button fav_add_btn;
 
     private static final String TAG1 = "TestDataBase";
 
@@ -44,7 +49,7 @@ public class SearchContentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipe_view);
+        setContentView(R.layout.recipe_view_main);
 /*
         //action bar 없애기
         getSupportActionBar().hide();
@@ -84,6 +89,8 @@ public class SearchContentActivity extends AppCompatActivity {
         vName = (TextView)findViewById(R.id.register_name);
         vIngre = (TextView)findViewById(R.id.register_ingre);
         vDesc = (TextView)findViewById(R.id.register_desc);
+        fav_add_btn = (Button)findViewById(R.id.fav_add_btn);
+
 
         // favorite_recipe_id 가져오기
         mDbOpenHelper = new DBOpenHelper(this);
@@ -118,7 +125,23 @@ public class SearchContentActivity extends AppCompatActivity {
 
 
         vCursor.close();
+        check=false;
 
+        fav_add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (check == false) {
+                    mDbOpenHelper.insertColumn(Integer.parseInt(recipe_id));
+                    Toast.makeText(getApplicationContext(), "즐겨찾기 추가", Toast.LENGTH_SHORT).show();
+                    check = true;
+                }
+                else{
+                    mDbOpenHelper.deleteFavColumn(Integer.parseInt(recipe_id),"dd");
+                    Toast.makeText(getApplicationContext(), "즐겨찾기 취소", Toast.LENGTH_SHORT).show();
+                    check = false;
+                }
+            }
+        });
 
 
     }

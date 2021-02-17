@@ -93,6 +93,9 @@ public class DBOpenHelper {
         return mDB.delete(Databases.CreateFavorite._TABLENAME,"_id="+id,null)>0;
     }
 
+    public boolean deleteFavColumn(long id, String state){
+        return mDB.delete(Databases.CreateFavorite._TABLENAME,"recipe_id="+id,null)>0;
+    }
 
 
     //id로 Myrecip table에서 삭제
