@@ -3,14 +3,10 @@ package com.example.howtocook_version2;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -84,17 +80,22 @@ public class MyRecipeListActivity extends AppCompatActivity {
         myrec_add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MyRecipeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyRecipeRegisterActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
             }
         });
 
+        //임시데이터. 나중에 지워주세요
+        //mDbOpenHelper.insertColumn("a","a","a","a");
+        //mDbOpenHelper.insertColumn("b","a","a","a");
+        //mDbOpenHelper.insertColumn("c","a","a","a");
 
         mCursor = null;
         mCursor = mDbOpenHelper.getMyrepAllColumns();
         Log.d("dbTest", "Count = " + mCursor.getCount());
 
+        //리스트뷰에 myrecipe table 내용 내보내기
         while(mCursor.moveToNext()){
 
             cook_name = mCursor.getString(mCursor.getColumnIndex("myrecipe_name"));
@@ -109,6 +110,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
 
         mCursor.close();
 
+        //꾹 눌렀을 때 삭제하기
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -123,6 +125,30 @@ public class MyRecipeListActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.right_to_left,R.anim.left_to_right);
     }
 
+    protected void onResume(){
+        super.onResume();
+        alist.clear();
+        mCursor = null;
+        mCursor = mDbOpenHelper.getMyrepAllColumns();
+        Log.d("dbTest", "Count = " + mCursor.getCount());
+
+        //리스트뷰에 myrecipe table 내용 내보내기
+        while(mCursor.moveToNext()){
+
+            cook_name = mCursor.getString(mCursor.getColumnIndex("myrecipe_name"));
+            cook_img = mCursor.getString(mCursor.getColumnIndex("myrecipe_image"));
+
+            Log.d("dbTest", cook_name);
+
+            item = new ListViewItem(cook_img,cook_name);
+            alist.add(item);
+            listViewAdapter.notifyDataSetChanged();
+        }
+
+        mCursor.close();
+    }
+
+    //삭제 다이얼로그
     private void showDeleteDialog(int index){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("삭제");
@@ -134,11 +160,12 @@ public class MyRecipeListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mCursor = mDbOpenHelper.getMyrepAllColumns();
+                        //리스트뷰 위치로 Cursor 이동
                         mCursor.moveToPosition(rep_index);
-                        //delete db 하기
 
                         String delete = mCursor.getString(1);
 
+                        //name을 이용해서 지우기 - id는 밀려나기 때문에
                         boolean result = mDbOpenHelper.deleteMyrepColumn(delete);
 
                         if(result){

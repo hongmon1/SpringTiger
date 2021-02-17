@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBOpenHelper {
     private static final String DATABASE_NAME="omona.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     public static SQLiteDatabase mDB;
     private DatabaseHelper mDBHelper;
     private Context mCtx;
@@ -37,7 +37,6 @@ public class DBOpenHelper {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS "+Databases.CreateFavorite._TABLENAME);
             db.execSQL("DROP TABLE IF EXISTS "+Databases.CreateMyrep._TABLENAME);
-            onCreate(db);
             db.execSQL("DROP TABLE IF EXISTS "+Databases.CreateRep._TALBLENAME);
             onCreate(db);
         }
