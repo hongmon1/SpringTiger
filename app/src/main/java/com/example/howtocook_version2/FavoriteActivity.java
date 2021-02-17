@@ -41,7 +41,7 @@ public class FavoriteActivity extends AppCompatActivity {
         myrep_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MyRecipeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyRecipeListActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_to_left,R.anim.left_to_right);
 

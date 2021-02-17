@@ -36,7 +36,7 @@ import java.util.Date;
 
 public class MyRecipeActivity extends AppCompatActivity {
 
-    Button home_btn, fav_btn, myrep_btn;
+
 
     Button registerBtn;
     EditText idEt,nameEt,ingreEt,descEt;
@@ -63,30 +63,7 @@ public class MyRecipeActivity extends AppCompatActivity {
 
         //action bar 없애기
         getSupportActionBar().hide();
-        
-        home_btn = findViewById(R.id.home_btn);
-        fav_btn = findViewById(R.id.fav_btn);
-        myrep_btn = findViewById(R.id.myrep_btn);
 
-        myrep_btn.setEnabled(false);
-        fav_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),FavoriteActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right_to_left,R.anim.left_to_right);
-
-            }
-        });
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right_to_left,R.anim.left_to_right);
-
-            }
-        });
 
         //DB 연결
         registerBtn=(Button)findViewById(R.id.register_btn);
