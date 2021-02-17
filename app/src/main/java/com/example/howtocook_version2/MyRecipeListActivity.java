@@ -113,7 +113,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 showDeleteDialog(i);
-                return false;
+                return true;
             }
         });
     }
@@ -160,5 +160,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        builder.show();
     }
 }

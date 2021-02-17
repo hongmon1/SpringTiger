@@ -24,6 +24,7 @@ public class FavoriteActivity extends AppCompatActivity {
     private String recipe_id;
     private String cook_img;
     private String cook_name;
+    private String cook_id;
 
     private ArrayList<ListViewItem> alist;
     private ListViewAdapter listViewAdapter;
@@ -82,12 +83,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
         while(mCursor.moveToNext()){
             recipe_id = mCursor.getString(mCursor.getColumnIndex("recipe_id"));
-
             Log.d("dbTest", recipe_id);
-
-            item = new ListViewItem(cook_img,cook_name);
-            //alist
-            listViewAdapter.notifyDataSetChanged();
         }
 
         mCursor.close();
@@ -99,13 +95,16 @@ public class FavoriteActivity extends AppCompatActivity {
 
         while(mCursor.moveToNext()){
 
+            cook_id = mCursor.getString(mCursor.getColumnIndex("recipe_id"));
             cook_name = mCursor.getString(mCursor.getColumnIndex("recipe_name"));
             cook_img = mCursor.getString(mCursor.getColumnIndex("recipe_image"));
 
             Log.d("dbTest", cook_name);
-
-            item = new ListViewItem(cook_img,cook_name);
-            listViewAdapter.notifyDataSetChanged();
+            if(cook_id.equals(recipe_id)) {
+                item = new ListViewItem(cook_img, cook_name);
+                alist.add(item);
+                listViewAdapter.notifyDataSetChanged();
+            }
         }
 
         mCursor.close();
