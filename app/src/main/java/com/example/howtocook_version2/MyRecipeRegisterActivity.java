@@ -97,8 +97,11 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
                     mDbOpenHelper.insertColumn(name,ingre, desc, image);
                     doWhileCursorToArray();
 
+                    //MyRecipeActivity로 전환
                     Intent intent = new Intent(getApplicationContext(),MyRecipeActivity.class);
+                    intent.putExtra("name",name);
                     startActivity(intent);
+
                     overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
                 }catch (Exception e){
                     Log.i("DBtest","Error!!!!!!!!!!!!!!!!!!!!!!!!!!!");

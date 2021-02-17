@@ -32,6 +32,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
     private String cook_name;
 
     private ListViewItem item;
+    private String intent_name;
 
     FloatingActionButton myrec_add_btn;
 
@@ -75,7 +76,6 @@ public class MyRecipeListActivity extends AppCompatActivity {
         });
 
         myrec_add_btn = findViewById(R.id.myrec_add_btn);
-        //단비 챗봇 플로팅 버튼
         //클릭시 danbeeactivity로 전환
         myrec_add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +116,14 @@ public class MyRecipeListActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 showDeleteDialog(i);
                 return true;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    moveToRecipe(i);
             }
         });
     }
@@ -190,4 +198,21 @@ public class MyRecipeListActivity extends AppCompatActivity {
 
         builder.show();
     }
+
+    public void moveToRecipe(int i){
+
+        mCursor = mDbOpenHelper.getMyrepAllColumns();
+        //리스트뷰 위치로 Cursor 이동
+        mCursor.moveToPosition(i);
+
+        intent_name = mCursor.getString(mCursor.getColumnIndex("myrecipe_name"));
+
+        mCursor.close();
+
+        Intent intent = new Intent(getApplicationContext(), MyRecipeActivity.class);
+        intent.putExtra("name",intent_name);
+        Log.d("test",intent_name);
+        startActivity(intent);
+    }
+
 }
