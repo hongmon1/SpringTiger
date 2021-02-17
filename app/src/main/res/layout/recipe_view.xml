@@ -47,7 +47,7 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            <TextView
+            <EditText
                 android:id="@+id/register_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            <TextView
+            <EditText
                 android:id="@+id/register_ingre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            <TextView
+            <EditText
                 android:id="@+id/register_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

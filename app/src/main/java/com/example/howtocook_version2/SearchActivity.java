@@ -107,10 +107,10 @@ public class SearchActivity extends AppCompatActivity {
             for(int i = 0;i < arrlist2.size(); i++) {
                 // arraylist의 모든 데이터에 입력받은 단어(charText)가 포함되어 있으면 true를 반환한다.
                 //if (arrlist.get(i).toLowerCase().contains(charText))
-                //if (arrlist2.get(i).contains(charText)) {
+                if (arrlist2.get(i).contains(charText)) {
                     // 검색된 데이터를 리스트에 추가한다.
-                 //   arrlist.add(arrlist2.get(i));
-                //}
+                    arrlist.add(arrlist2.get(i));
+                }
             }
         }
         // 리스트 데이터가 변경되었으므로 아답터를 갱신하여 검색된 데이터를 화면에 보여준다.
@@ -125,7 +125,7 @@ public class SearchActivity extends AppCompatActivity {
         while (mCursor.moveToNext()) {
             //InfoClass에 입력된 값을 압력
             Log.d(TAG, mCursor.getString(mCursor.getColumnIndex("recipe_name")));
-            //arrlist.add(mCursor.getString(mCursor.getColumnIndex("recipe_name"))); //원래 이거
+            arrlist.add(mCursor.getString(mCursor.getColumnIndex("recipe_name"))); //원래 이거
         }
         mCursor.close();
     }
