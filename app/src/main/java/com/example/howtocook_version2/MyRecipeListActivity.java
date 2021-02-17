@@ -77,12 +77,12 @@ public class MyRecipeListActivity extends AppCompatActivity {
         });
 
         myrec_add_btn = findViewById(R.id.myrec_add_btn);
-        //클릭시 danbeeactivity로 전환
+        //클릭시 MyrecipeRegisterctivity로 전환
         myrec_add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(getApplicationContext(), MyRecipeRegisterActivity.class);
-                Intent intent = new Intent(getApplicationContext(),TestActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyRecipeRegisterActivity.class);
+                //Intent intent = new Intent(getApplicationContext(),TestActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
             }

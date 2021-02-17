@@ -1,5 +1,6 @@
 package com.example.howtocook_version2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -112,6 +114,7 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
                     startActivity(intent);
 
                     overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
+                    finish();
                 }catch (Exception e){
                     Log.i("DBtest","Error!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 }
@@ -137,6 +140,15 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
         else{
             Toast.makeText(this,"권한 모두 허용", Toast.LENGTH_SHORT).show();
         }
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+                ActivityCompat.requestPermissions(MyRecipeRegisterActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        }
+
         mImageView = (ImageView)findViewById(R.id.imageView);
         GalleryBtn = (Button)findViewById(R.id.btnGallery);
         GalleryBtn.setOnClickListener(new View.OnClickListener() {
@@ -160,22 +172,14 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
         CameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int permissionCheck = ContextCompat.checkSelfPermission(MyRecipeRegisterActivity.this, Manifest.permission.CAMERA);
-                if(permissionCheck == PackageManager.PERMISSION_DENIED){
-                    ActivityCompat.requestPermissions(MyRecipeRegisterActivity.this,new String[]{Manifest.permission.CAMERA},0);
-                }
-                else {
-                    //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    //startActivityForResult(intent,PICK_FROM_CAMERA);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,PICK_FROM_CAMERA);
 
-                }
-                //tedPermission();
-                //if(isPermission)  takePhoto();
-                //else Toast.makeText(view.getContext(), getResources().getString(R.string.permission_2), Toast.LENGTH_LONG).show();
             }
         });
 
     }
+
 
     protected void onPause(){
         super.onPause();
@@ -183,6 +187,14 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
     }
 
 
+    // 권한 요청
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
+
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -224,39 +236,13 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
             setImage();
 
         } else if (requestCode == PICK_FROM_CAMERA) {
-            Uri photoUri = data.getData();
-            Log.d(TAG, "PICK_FROM_ALBUM photoUri : " + photoUri);
-
-            Cursor cursor = null;
-
-            try {
-
-                /*
-                 *  Uri 스키마를
-                 *  content:/// 에서 file:/// 로  변경한다.
-                 */
-                String[] proj = {MediaStore.Images.Media.DATA};
-
-                assert photoUri != null;
-                cursor = getContentResolver().query(photoUri, proj, null, null, null);
-
-                assert cursor != null;
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-                cursor.moveToFirst();
-
-                tempFile = new File(cursor.getString(column_index));
-
-                Log.d(TAG, "tempFile Uri : " + Uri.fromFile(tempFile));
-
-            } finally {
-                if (cursor != null) {
-                    cursor.close();
+            if(resultCode == RESULT_OK && data.hasExtra("data")){
+                Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+                if(bitmap!=null){
+                    mImageView.setImageBitmap(bitmap);
+                    tempImg = BitmapToString(bitmap);
                 }
             }
-
-            setImage();
-            //setImage();
 
         }
     }

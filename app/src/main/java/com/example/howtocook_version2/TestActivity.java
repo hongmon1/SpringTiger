@@ -1,5 +1,6 @@
 package com.example.howtocook_version2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -15,6 +16,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -73,6 +75,7 @@ public class TestActivity extends AppCompatActivity {
 
         mImageView = (ImageView)findViewById(R.id.imageView);
         GalleryBtn = (Button)findViewById(R.id.btnGallery);
+        CameraBtn = findViewById(R.id.btnCamera);
 
         //DB 연결
         mDbOpenHelper = new DBOpenHelper(this);
@@ -100,7 +103,8 @@ public class TestActivity extends AppCompatActivity {
         else{
             Toast.makeText(this,"권한 모두 허용", Toast.LENGTH_SHORT).show();
         }
-        checkPermission();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {} else {  ActivityCompat.requestPermissions(TestActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1); } }
+
 
         //새 레시피 등록
         registerBtn.setOnClickListener(new View.OnClickListener() {
@@ -117,43 +121,41 @@ public class TestActivity extends AppCompatActivity {
                 //goToAlbum();
             }
         });
-    }
 
-    private void captureCamera(){
-        //
+        CameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,PICK_FROM_CAMERA);
 
-        String state = Environment.getExternalStorageState();
-        if(Environment.MEDIA_MOUNTED.equals(state)){
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if(takePictureIntent.resolveActivity(getPackageManager())!=null){
-                File photoFile = null;
-                try{
-                    photoFile = createImageFile();
-                }
-                catch(IOException e){
-
-                }
-                if(photoFile!= null){
-                    photoURI = FileProvider.getUriForFile(this,"SpringTiger",photoFile);
-
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                }
             }
+        });
+    }
+
+    // 권한 요청
+    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { super.onRequestPermissionsResult(requestCode, permissions, grantResults); if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) { } }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode){
+            case PICK_FROM_ALBUM :
+                break;
+            case PICK_FROM_CAMERA:
+                if(resultCode == RESULT_OK && data.hasExtra("data")){
+                    Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+                    if(bitmap!=null){
+                        mImageView.setImageBitmap(bitmap);
+                        tempImg = BitmapToString(bitmap);
+                    }
+                }
+                break;
         }
-
     }
 
-    private File createImageFile() throws IOException{
-        //Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = timeStamp+".jpg";
-        File storageDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pathvalue/"+imageFileName);
-
-        //Save a file:path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = storageDir.getAbsolutePath();
-        return storageDir;
-    }
 
 
 
@@ -192,41 +194,5 @@ public class TestActivity extends AppCompatActivity {
         return temp;
     }
 
-    private boolean checkPermission() {
-        //사용자가 퍼미션 거부를 한 적 있는 경우
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-
-            //사용자에게 이유 설명
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                new AlertDialog.Builder(this)
-                        .setTitle("알림")
-                        .setMessage("저장소 권한은 거부되었습니다. 사용을 원하시면 설정에서 해당 권한을 직접 허용해주세요.")
-                        .setNeutralButton("설정", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                intent.setData(Uri.parse("package:com.shuvic.alumni.andokdcapp"));
-                                startActivity(intent);
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
-                            }
-                        })
-                        .setCancelable(false)
-                        .create()
-                        .show();
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2001);
-            }
-        } else {
-            return true;
-        }
-        return true;
-    }
 
 }

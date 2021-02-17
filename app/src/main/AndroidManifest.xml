@@ -26,7 +26,6 @@
         <activity android:name=".FavoriteActivity" />
         <activity android:name=".FavoriteContentActivity" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".SearchContentActivity" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -36,6 +35,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>
