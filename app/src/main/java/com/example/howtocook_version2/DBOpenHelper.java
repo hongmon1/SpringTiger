@@ -29,7 +29,7 @@ public class DBOpenHelper {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(Databases.CreateFavorite._CREATE);
             db.execSQL(Databases.CreateMyrep._CREATE);
-
+            db.execSQL(Databases.CreateRep._CREATE);
         }
 
         // 버전이 업데이트 되었을 경우 DB를 다시 만들어 준다.
@@ -37,6 +37,8 @@ public class DBOpenHelper {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS "+Databases.CreateFavorite._TABLENAME);
             db.execSQL("DROP TABLE IF EXISTS "+Databases.CreateMyrep._TABLENAME);
+            onCreate(db);
+            db.execSQL("DROP TABLE IF EXISTS "+Databases.CreateRep._TALBLENAME);
             onCreate(db);
         }
 
@@ -76,6 +78,17 @@ public class DBOpenHelper {
         return mDB.insert(Databases.CreateMyrep._TABLENAME,null,values);
     }
 
+    //recipe table에 column 삽입
+    public long insertColumn(String name, String ingre, String desc, String com, String image){
+        ContentValues values = new ContentValues();
+        values.put(Databases.CreateRep.RECIPE_NAME,name);
+        values.put(Databases.CreateRep.RECIPE_INGRE,ingre);
+        values.put(Databases.CreateRep.RECIPE_DESC,desc);
+        values.put(Databases.CreateRep.RECIPE_COM,com);
+        values.put(Databases.CreateRep.RECIPE_IMAGE,image);
+        return mDB.insert(Databases.CreateRep._TALBLENAME,null,values);
+    }
+
     //id로 Favorite table에서 삭제
     public boolean deleteFavColumn(long id){
         return mDB.delete(Databases.CreateFavorite._TABLENAME,"_id="+id,null)>0;
@@ -84,6 +97,11 @@ public class DBOpenHelper {
     //id로 Myrecip table에서 삭제
     public boolean deleteMyrepColumn(long id){
         return mDB.delete(Databases.CreateMyrep._TABLENAME,"_id="+id,null)>0;
+    }
+
+    //id로 recipe table에서 삭제
+    public boolean deleteRepColumn(long id){
+        return mDB.delete(Databases.CreateRep._TALBLENAME,"_id="+id,null)>0;
     }
 
     //모든 컬럼 가져옴
@@ -95,8 +113,13 @@ public class DBOpenHelper {
     //모든 컬럼 가져옴
     //커서 전체 선택
     public Cursor getMyrepAllColumns(){
-        return mDB.query(Databases.CreateFavorite._TABLENAME,null,null,null,null,null,null);
+        return mDB.query(Databases.CreateMyrep._TABLENAME,null,null,null,null,null,null);
     }
 
+    //모든 컬럼 가져옴
+    //커서 전체 선택
+    public Cursor getRepAllColumns(){
+        return mDB.query(Databases.CreateRep._TALBLENAME,null,null,null,null,null,null);
+    }
 
 }

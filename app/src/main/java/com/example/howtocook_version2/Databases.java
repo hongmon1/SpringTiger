@@ -34,15 +34,18 @@ public final class Databases {
     public static final class CreateRep implements BaseColumns{
         public static final String _TALBLENAME = "recipe";
         public static final String RECIPE_NAME = "recipe_name";
+        public static final String RECIPE_INGRE = "recipe_ingre";
         public static final String RECIPE_DESC = "recipe_desc";
         public static final String RECIPE_COM = "recipe_com";
-
+        public static final String RECIPE_IMAGE = "recipe_image";
         public static final String _CREATE =
                 "create table "+_TALBLENAME+"("
                         +_ID+" integer primary key autoincrement, "
-                        +RECIPE_NAME+" text not null), "
+                        +RECIPE_NAME+" text not null, "
+                        +RECIPE_INGRE+" text not null, "
                         +RECIPE_DESC+" text not null, "
-                        +RECIPE_COM+" text not null );";
+                        +RECIPE_COM+" text not null, "
+                        +RECIPE_IMAGE+" char(50) );";
 
 
     }

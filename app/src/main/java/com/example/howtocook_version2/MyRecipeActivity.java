@@ -103,8 +103,6 @@ public class MyRecipeActivity extends AppCompatActivity {
                     String desc = descEt.getText().toString();
                     String user_id = "1";
                     String image = "비어있는 이미지";
-                    Task task = new Task();
-                    result = task.execute(id, name, ingre, desc,image,user_id).get();
 
                 }catch (Exception e){
                     Log.i("DBtest","Error!!!!!!!!!!!!!!!!!!!!!!!!!!!");
