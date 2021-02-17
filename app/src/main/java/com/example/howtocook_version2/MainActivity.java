@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,13 +31,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button home_btn, fav_btn, myrep_btn;
+    Button home_btn, fav_btn, myrep_btn, search_btn;
     EditText editText;
 
-    ListView listview = new ListView();
-
     private DBOpenHelper mDbOpenHelper;
-
 
 
     @Override
@@ -50,30 +48,7 @@ public class MainActivity extends AppCompatActivity {
         home_btn = findViewById(R.id.home_btn);
         fav_btn = findViewById(R.id.fav_btn);
         myrep_btn = findViewById(R.id.myrep_btn);
-        editText = findViewById(R.id.editText);
-
-        listview.editSearch = (EditText) findViewById(R.id.editText);
-        listview.listView = (android.widget.ListView)findViewById(R.id.listView);
-
-        listview.list = new ArrayList<String>();
-        listview.settingList();     //임시데이터
-        listview.arraylist = new ArrayList<String>();
-        listview.arraylist.addAll(listview.list);
-        listview.adapter = new com.example.howtocook_version2.SearchAdapter(listview.list, this);
-        listview.listView.setAdapter(listview.adapter);
-
-        // input창에 검색어를 입력시 "addTextChangedListener" 이벤트 리스너를 정의
-        listview. editSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String text = listview.editSearch.getText().toString();
-                listview.search(text);
-            }
-        });
+        editText = findViewById(R.id.editText); //검색창
 
 
         home_btn.setEnabled(false);
@@ -95,12 +70,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        listview.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        editText.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent it = new Intent(MainActivity.this, FavoriteActivity.class);
-           //     it.putExtra("it_listData", data[position]);   어떤 값이 선택되었는지 알려줘야한다
-                startActivity(it);
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), ListViewActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -112,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     protected void onPause(){
