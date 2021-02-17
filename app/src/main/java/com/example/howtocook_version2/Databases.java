@@ -30,4 +30,21 @@ public final class Databases {
                         +MYRECIPE_IMAGE+" char(50) );";
     }
 
+    //레시피테이블
+    public static final class CreateRep implements BaseColumns{
+        public static final String _TALBLENAME = "recipe";
+        public static final String RECIPE_NAME = "recipe_name";
+        public static final String RECIPE_DESC = "recipe_desc";
+        public static final String RECIPE_COM = "recipe_com";
+
+        public static final String _CREATE =
+                "create table "+_TALBLENAME+"("
+                        +_ID+" integer primary key autoincrement, "
+                        +RECIPE_NAME+" text not null), "
+                        +RECIPE_DESC+" text not null, "
+                        +RECIPE_COM+" text not null );";
+
+
+    }
+
 }

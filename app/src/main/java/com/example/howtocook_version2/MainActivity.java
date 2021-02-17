@@ -8,10 +8,13 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -22,10 +25,15 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     Button home_btn, fav_btn, myrep_btn;
+    EditText editText;
+
+    ListView listview = new ListView();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,31 @@ public class MainActivity extends AppCompatActivity {
         home_btn = findViewById(R.id.home_btn);
         fav_btn = findViewById(R.id.fav_btn);
         myrep_btn = findViewById(R.id.myrep_btn);
+        editText = findViewById(R.id.editText);
+
+        listview.editSearch = (EditText) findViewById(R.id.editText);
+        listview.listView = (android.widget.ListView)findViewById(R.id.listView);
+
+        listview.list = new ArrayList<String>();
+        listview.settingList();     //임시데이터
+        listview.arraylist = new ArrayList<String>();
+        listview.arraylist.addAll(listview.list);
+        listview.adapter = new com.example.howtocook_version2.SearchAdapter(listview.list, this);
+        listview.listView.setAdapter(listview.adapter);
+
+        // input창에 검색어를 입력시 "addTextChangedListener" 이벤트 리스너를 정의
+        listview. editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String text = listview.editSearch.getText().toString();
+                listview.search(text);
+            }
+        });
+
 
         home_btn.setEnabled(false);
         fav_btn.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listview.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent it = new Intent(MainActivity.this, FavoriteActivity.class);
+           //     it.putExtra("it_listData", data[position]);   어떤 값이 선택되었는지 알려줘야한다
+                startActivity(it);
+            }
+        });
     }
 
     protected void onPause(){
