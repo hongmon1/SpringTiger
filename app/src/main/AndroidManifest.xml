@@ -14,10 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="stateAlwaysHidden"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".DanbeeActivity"></activity>
-        <activity android:name=".MyRecipeActivity" />
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="stateAlwaysHidden">
+        <activity android:name=".MyRecipeActivity"></activity>
+        <activity android:name=".DanbeeActivity" />
+        <activity android:name=".MyRecipeRegisterActivity" />
         <activity android:name=".MyRecipeListActivity" />
         <activity android:name=".FavoriteActivity" />
         <activity android:name=".SearchActivity" />
