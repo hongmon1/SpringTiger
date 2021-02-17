@@ -33,6 +33,8 @@ public class DanbeeActivity extends AppCompatActivity {
         //새창열기 없이 웹뷰 내에서 열기
         webView.setWebViewClient(new WebViewClientClass());
 
+        //https://novemberde.github.io/android/2017/12/19/Android-Webview.html
+        //Javascript문제로 하얀화면 뜨는거 방지하기 위해
         webView.setNetworkAvailable(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
