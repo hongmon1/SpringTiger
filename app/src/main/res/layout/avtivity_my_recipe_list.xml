@@ -82,5 +82,5 @@
             android:drawableTop="@drawable/ic_assignment_black_24dp"
             android:text="내 레시피"/>
     </LinearLayout>
-
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

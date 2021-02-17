@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +35,8 @@ public class MyRecipeListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.avtivity_my_recipe_list);
+
+        getSupportActionBar().hide();
 
         home_btn = findViewById(R.id.home_btn);
         fav_btn = findViewById(R.id.fav_btn);
@@ -69,10 +72,14 @@ public class MyRecipeListActivity extends AppCompatActivity {
 
         mCursor = null;
         mCursor = mDbOpenHelper.getMyrepAllColumns();
+        Log.d("dbTest", "Count = " + mCursor.getCount());
 
         while(mCursor.moveToNext()){
+
             cook_name = mCursor.getString(mCursor.getColumnIndex("myrecipe_name"));
             cook_img = mCursor.getString(mCursor.getColumnIndex("myrecipe_img"));
+
+            Log.d("dbTest", cook_name);
 
             item = new ListViewItem(cook_img,cook_name);
             listViewAdapter.notifyDataSetChanged();
