@@ -91,11 +91,11 @@ public class FavoriteActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent it = new Intent(FavoriteActivity.this, .class);   // 인텐트 처리
+                //Intent it = new Intent(FavoriteActivity.this, .class);   // 인텐트 처리
                 mCursor = mDbOpenHelper.getFavAllColumns();
-                mCursor.moveToPosition(rep_index);
-                it.putExtra("it_listData", datas[position]);
-                startActivity(it);
+                //mCursor.moveToPosition(rep_index);
+                //it.putExtra("it_listData", datas[position]);
+                //startActivity(it);
             }
         });
 
