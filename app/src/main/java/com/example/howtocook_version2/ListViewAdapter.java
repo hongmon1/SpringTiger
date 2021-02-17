@@ -1,7 +1,10 @@
 package com.example.howtocook_version2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +50,7 @@ public class ListViewAdapter extends BaseAdapter {
         ListViewItem listViewItem = listViewItemArrayList.get(position);
 
         //아이템 내 각 위젯에 데이터 반영
-        imageView.setImageDrawable(listViewItem.getImg());
+        imageView.setImageBitmap(StringToBitmap(listViewItem.getImg()));
         textView.setText(listViewItem.getName());
 
         return convertView;
@@ -68,4 +71,14 @@ public class ListViewAdapter extends BaseAdapter {
     //
 
 
+    public static Bitmap StringToBitmap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 }

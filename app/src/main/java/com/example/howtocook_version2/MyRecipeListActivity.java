@@ -2,6 +2,7 @@ package com.example.howtocook_version2;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +25,11 @@ class MyRecipeListActivity extends AppCompatActivity {
     private ListView listView;
     private DBOpenHelper mDbOpenHelper;
     private Cursor mCursor;
+
+    private String cook_img;
+    private String cook_name;
+
+    private ListViewItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,16 @@ class MyRecipeListActivity extends AppCompatActivity {
 
             }
         });
+
+        mCursor = null;
+        mCursor = mDbOpenHelper.getMyrepAllColumns();
+
+        while(mCursor.moveToNext()){
+            cook_name = mCursor.getString(mCursor.getColumnIndex("myrecipe_name"));
+            cook_img = mCursor.getString(mCursor.getColumnIndex("myrecipe_img"));
+
+            item = new ListViewItem(cook_img,cook_name);
+        }
 
     }
 

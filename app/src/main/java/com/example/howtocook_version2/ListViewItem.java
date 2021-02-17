@@ -5,22 +5,22 @@ import android.graphics.drawable.Icon;
 import android.media.Image;
 
 public class ListViewItem {
-    private Drawable img;
+    private String img;
     private String name;
 
-    public ListViewItem(Drawable img, String name){
+    public ListViewItem(String img, String name){
         this.img = img;
         this.name = name;
     }
 
-    public void setImg(Drawable img){
+    public void setImg(String img){
         this.img = img;
     }
     public void setName(String name){
         this.name = name;
     }
 
-    public Drawable getImg(){
+    public String getImg(){
         return this.img;
     }
 
