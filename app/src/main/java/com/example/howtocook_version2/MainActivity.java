@@ -14,7 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
 
     Button home_btn, fav_btn, myrep_btn;
-    Button cate1, cate2, cate3, cate4, cate5;
+    Button cate1_btn, cate2_btn, cate3_btn, cate4_btn, cate5_btn;
     EditText editText;
     FloatingActionButton danbee_btn;
 
@@ -33,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
         fav_btn = findViewById(R.id.fav_btn);
         myrep_btn = findViewById(R.id.myrep_btn);
         editText = findViewById(R.id.editText); //검색창
+
+
+        cate1_btn = findViewById(R.id.cate1_btn);
+        cate2_btn = findViewById(R.id.cate2_btn);
+        cate3_btn = findViewById(R.id.cate3_btn);
+        cate4_btn = findViewById(R.id.cate4_btn);
+        cate5_btn = findViewById(R.id.cate5_btn);
+
 
         home_btn.setEnabled(false);
         fav_btn.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +68,49 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        cate1_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                intent.putExtra("분류1",1);
+                startActivity(intent);
+            }
+        });
+
+        cate2_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                intent.putExtra("분류2",2);
+                startActivity(intent);
+            }
+        });
+        cate3_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                intent.putExtra("분류3",3);
+                startActivity(intent);
+            }
+        });
+        cate4_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                intent.putExtra("분류4",4);
+                startActivity(intent);
+            }
+        });
+        cate5_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                intent.putExtra("분류5",5);
+                startActivity(intent);
+            }
+        });
+
 
 
         //데이터베이스 생성(파라메터 Context) 및 오픈
