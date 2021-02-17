@@ -19,13 +19,17 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     private EditText editText;
-    private android.widget.ListView listView;
+    private ListView listView;
 
     //데이터를 넣은 리스트변수
     private ArrayList<InfoClass> arrlist;
     private ArrayList<InfoClass> arrlist2;
    // private ArrayList<String> strlist;
    // private ArrayList<String> strlist2;
+
+    private String id;
+    private String name;
+    private InfoClass item;
 
     private SearchAdapter adapter;
     private DBOpenHelper mDbOpenHelper;
@@ -107,7 +111,7 @@ public class SearchActivity extends AppCompatActivity {
             for(int i = 0;i < arrlist2.size(); i++) {
                 // arraylist의 모든 데이터에 입력받은 단어(charText)가 포함되어 있으면 true를 반환한다.
                 //if (arrlist.get(i).toLowerCase().contains(charText))
-                if (arrlist2.get(i).contains(charText)) {
+                if (arrlist2.get(i).name.contains(charText)) {          //@
                     // 검색된 데이터를 리스트에 추가한다.
                     arrlist.add(arrlist2.get(i));
                 }
@@ -124,8 +128,18 @@ public class SearchActivity extends AppCompatActivity {
 
         while (mCursor.moveToNext()) {
             //InfoClass에 입력된 값을 압력
-            Log.d(TAG, mCursor.getString(mCursor.getColumnIndex("recipe_name")));
-            arrlist.add(mCursor.getString(mCursor.getColumnIndex("recipe_name"))); //원래 이거
+            InfoClass info = new InfoClass();
+
+            //id = mCursor.getString(mCursor.getColumnIndex("recipe_id"));
+            //int ID = Integer.parseInt(id);
+            name = mCursor.getString(mCursor.getColumnIndex("recipe_name"));
+            //item = new InfoClass(ID, name);
+            item = new InfoClass(name);
+
+            arrlist.add(item);
+
+           // Log.d(TAG, mCursor.getString(mCursor.getColumnIndex("recipe_name")));
+            //arrlist.add(mCursor.getString(mCursor.getColumnIndex("recipe_name"))); //원래 이거
         }
         mCursor.close();
     }

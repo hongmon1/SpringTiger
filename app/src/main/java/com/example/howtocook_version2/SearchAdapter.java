@@ -1,6 +1,4 @@
 package com.example.howtocook_version2;
-
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,17 +26,12 @@ public class SearchAdapter extends BaseAdapter{
     public int getCount() {
         return InfoList.size();
     }
-
     @Override
     public Object getItem(int i) {
         return null;
     }
-
     @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
+    public long getItemId(int i) { return 0; }
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         final Context context = viewGroup.getContext();
@@ -49,6 +42,7 @@ public class SearchAdapter extends BaseAdapter{
         }
         //화면에 대한 참조
         TextView textView = convertView.findViewById(R.id.label);
+       // TextView textView = convertView.findViewById(R.id.listView);
         //데이터셋에서 position에 위치한 데이터 참조
         InfoClass infoClass = InfoList.get(position);
 

@@ -6,6 +6,10 @@ public class InfoClass {
 
     public InfoClass(){}
 
+    public InfoClass(String name){
+        this.name = name;
+    }
+
     public InfoClass(int _id, String name){
         this._id = _id;
         this.name = name;
