@@ -82,6 +82,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
             Log.d("dbTest", cook_name);
 
             item = new ListViewItem(cook_img,cook_name);
+            alist.add(item);
             listViewAdapter.notifyDataSetChanged();
         }
 
