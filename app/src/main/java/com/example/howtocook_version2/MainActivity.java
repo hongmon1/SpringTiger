@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
 
     ListView listview = new ListView();
+
+    private DBOpenHelper mDbOpenHelper;
+
 
 
     @Override
@@ -99,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
+
+        //데이터베이스 생성(파라메터 Context) 및 오픈
+        mDbOpenHelper = new DBOpenHelper(this);
+        try {
+            mDbOpenHelper.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     protected void onPause(){
