@@ -34,7 +34,6 @@ public class SearchActivity extends AppCompatActivity {
     private SearchAdapter adapter;
     private DBOpenHelper mDbOpenHelper;
     private Cursor mCursor;
-    private static final String TAG = "db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +43,9 @@ public class SearchActivity extends AppCompatActivity {
         //action bar 없애기
         getSupportActionBar().hide();
 
+
         //리스트 생성
         arrlist = new ArrayList<InfoClass>();
-      //  strlist = new ArrayList<String>();
-        //리스트의 데이터를 2리스트에 복사(복사본 생성)
-        arrlist2 = new ArrayList<InfoClass>();
-        //strlist2 = new ArrayList<String>();
-        arrlist2.addAll(arrlist);
-        //strlist2.addAll(strlist);
 
 
       //  final String[] strlist = arrlist.toArray(new String[arrlist.size()]);
@@ -66,10 +60,20 @@ public class SearchActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        mDbOpenHelper.insertColumn("apple", "aa","bb","cc","dd");
-        mDbOpenHelper.insertColumn("bread", "ee","ff","gg","hh");
+       // mDbOpenHelper.insertColumn("apple", "aa","bb","cc","dd");
+       // mDbOpenHelper.insertColumn("bread", "ee","ff","gg","hh");
+
+
 
         doWhileCursorToArray();
+
+
+        //  strlist = new ArrayList<String>();
+        //리스트의 데이터를 2리스트에 복사(복사본 생성)
+        arrlist2 = new ArrayList<InfoClass>();
+        //strlist2 = new ArrayList<String>();
+        arrlist2.addAll(arrlist);
+        //strlist2.addAll(strlist);
 
         //검색어를 입력시 이벤트 리스너
         editText.addTextChangedListener(new TextWatcher() {
@@ -79,6 +83,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
             @Override
             public void afterTextChanged(Editable editable) {
+                Log.i("tag","log0");
                 String text = editText.getText().toString();
                 search(text);
             }
@@ -99,20 +104,23 @@ public class SearchActivity extends AppCompatActivity {
     private void search(String charText) {
         // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
         arrlist.clear();
-
+        Log.i("tag","log");
         // 문자 입력이 없을때는 모든 데이터를 보여준다.
-        if (charText.length() == 0) {
-            arrlist.addAll(arrlist2);
-        }
+       if (charText.length() == 0) {
+           Log.i("tag","log2");
+           arrlist.addAll(arrlist2);
+       }
         // 문자 입력을 할때..
         else
         {
             // 리스트의 모든 데이터를 검색한다.
             for(int i = 0;i < arrlist2.size(); i++) {
+                Log.i("tag","log3");
                 // arraylist의 모든 데이터에 입력받은 단어(charText)가 포함되어 있으면 true를 반환한다.
                 //if (arrlist.get(i).toLowerCase().contains(charText))
                 if (arrlist2.get(i).name.contains(charText)) {          //@
                     // 검색된 데이터를 리스트에 추가한다.
+                   // Log.d("tag","log");
                     arrlist.add(arrlist2.get(i));
                 }
             }
@@ -130,10 +138,10 @@ public class SearchActivity extends AppCompatActivity {
             //InfoClass에 입력된 값을 압력
             InfoClass info = new InfoClass();
 
-            //id = mCursor.getString(mCursor.getColumnIndex("recipe_id"));
-            //int ID = Integer.parseInt(id);
+            id = mCursor.getString(mCursor.getColumnIndex("_id"));
+            int ID = Integer.parseInt(id);
             name = mCursor.getString(mCursor.getColumnIndex("recipe_name"));
-            //item = new InfoClass(ID, name);
+            item = new InfoClass(ID, name);
             item = new InfoClass(name);
 
             arrlist.add(item);
