@@ -74,7 +74,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
             }
         });
 
-        myrec_add_btn = findViewById(R.id.danbee_btn);
+        myrec_add_btn = findViewById(R.id.myrec_add_btn);
         //단비 챗봇 플로팅 버튼
         //클릭시 danbeeactivity로 전환
         myrec_add_btn.setOnClickListener(new View.OnClickListener() {
