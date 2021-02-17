@@ -116,7 +116,7 @@ public class FavoriteActivity extends AppCompatActivity {
         for(int i = 0 ; i <3; i++) {
             mDbOpenHelper.insertColumn(i);
         }*/
-        mDbOpenHelper.deleteFavColumn(1);
+        //mDbOpenHelper.deleteFavColumn(1);
 
         mCursor = null;
         mCursor = mDbOpenHelper.getFavAllColumns();

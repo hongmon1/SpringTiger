@@ -1,27 +1,21 @@
 package com.example.howtocook_version2;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class FavoriteContentActivity extends AppCompatActivity {
+public class SearchContentActivity extends AppCompatActivity {
     Button home_btn, fav_btn, myrep_btn;
 
 
@@ -43,11 +37,6 @@ public class FavoriteContentActivity extends AppCompatActivity {
     TextView vIngre;
     TextView vDesc;
     TextView vCom;
-
-    private ArrayList<ListViewItem> alist;
-    private ListViewAdapter listViewAdapter;
-    private ListView listView;
-    private ListViewItem item;
 
     private static final String TAG1 = "TestDataBase";
 

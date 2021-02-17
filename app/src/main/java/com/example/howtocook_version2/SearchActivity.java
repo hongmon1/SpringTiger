@@ -55,11 +55,8 @@ public class SearchActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         mDbOpenHelper = new DBOpenHelper(this);
-        try {
-            mDbOpenHelper.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        mDbOpenHelper.open();
+
        // mDbOpenHelper.insertColumn("apple", "aa","bb","cc","dd");
        // mDbOpenHelper.insertColumn("bread", "ee","ff","gg","hh");
 
@@ -93,9 +90,17 @@ public class SearchActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(SearchActivity.this, FavoriteActivity.class);
-                //     it.putExtra("it_listData", data[position]);   어떤 값이 선택되었는지 알려줘야한다
-                startActivity(intent);
+                mCursor = mDbOpenHelper.getRepAllColumns();
+                mCursor.moveToPosition(i);
+
+                String idRecipe = mCursor.getString(mCursor.getColumnIndex("_id"));
+                //long idRecipe_int = Integer.parseInt(idRecipe);
+                mCursor.close();
+                Intent it = new Intent(getApplicationContext(), SearchContentActivity.class);   // 인텐트 처리
+
+                it.putExtra("it_idRecipe", idRecipe);
+                //Log.d("","idRedcipe : "+idRecipe);
+                startActivity(it);
             }
         });
     }
