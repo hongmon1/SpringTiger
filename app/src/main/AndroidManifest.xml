@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,14 +18,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="stateAlwaysHidden">
-        <activity android:name=".MyRecipeActivity"></activity>
+        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".MyRecipeActivity" />
         <activity android:name=".DanbeeActivity" />
         <activity android:name=".MyRecipeRegisterActivity" />
         <activity android:name=".MyRecipeListActivity" />
         <activity android:name=".FavoriteActivity" />
         <activity android:name=".FavoriteContentActivity" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".CategoryActivity"/>
+        <activity android:name=".CategoryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,5 +35,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>
