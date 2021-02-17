@@ -65,7 +65,17 @@ public class FavoriteActivity extends AppCompatActivity {
         });
 
 
-        //
+
+        // favorite_recipe_id 가져오기
+
+        alist = new ArrayList<ListViewItem>();
+        listViewAdapter = new ListViewAdapter(this,alist);
+        listView = findViewById(R.id.listview);
+        listView.setAdapter(listViewAdapter);
+
+        mDbOpenHelper = new DBOpenHelper(this);
+        mDbOpenHelper.open();
+
         mCursor = null;
         mCursor = mDbOpenHelper.getFavAllColumns();
         Log.d("dbTest", "Count = " + mCursor.getCount());
@@ -74,6 +84,25 @@ public class FavoriteActivity extends AppCompatActivity {
             recipe_id = mCursor.getString(mCursor.getColumnIndex("recipe_id"));
 
             Log.d("dbTest", recipe_id);
+
+            item = new ListViewItem(cook_img,cook_name);
+            alist
+            listViewAdapter.notifyDataSetChanged();
+        }
+
+        mCursor.close();
+
+        //recipe 내용 가져오기
+        mCursor = null;
+        mCursor = mDbOpenHelper.getRepAllColumns();
+        Log.d("dbTest", "Count = " + mCursor.getCount());
+
+        while(mCursor.moveToNext()){
+
+            cook_name = mCursor.getString(mCursor.getColumnIndex("recipe_name"));
+            cook_img = mCursor.getString(mCursor.getColumnIndex("recipe_image"));
+
+            Log.d("dbTest", cook_name);
 
             item = new ListViewItem(cook_img,cook_name);
             listViewAdapter.notifyDataSetChanged();
