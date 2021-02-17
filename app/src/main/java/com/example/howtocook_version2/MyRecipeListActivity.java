@@ -14,6 +14,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 public class MyRecipeListActivity extends AppCompatActivity {
@@ -30,6 +32,8 @@ public class MyRecipeListActivity extends AppCompatActivity {
     private String cook_name;
 
     private ListViewItem item;
+
+    FloatingActionButton myrec_add_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,19 @@ public class MyRecipeListActivity extends AppCompatActivity {
 
             }
         });
+
+        myrec_add_btn = findViewById(R.id.danbee_btn);
+        //단비 챗봇 플로팅 버튼
+        //클릭시 danbeeactivity로 전환
+        myrec_add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DanbeeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
+            }
+        });
+
 
         mCursor = null;
         mCursor = mDbOpenHelper.getMyrepAllColumns();

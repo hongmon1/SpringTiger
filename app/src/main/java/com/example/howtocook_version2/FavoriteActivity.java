@@ -86,7 +86,7 @@ public class FavoriteActivity extends AppCompatActivity {
             Log.d("dbTest", recipe_id);
 
             item = new ListViewItem(cook_img,cook_name);
-            alist
+            //alist
             listViewAdapter.notifyDataSetChanged();
         }
 
