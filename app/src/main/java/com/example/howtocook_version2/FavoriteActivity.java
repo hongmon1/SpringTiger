@@ -74,7 +74,8 @@ public class FavoriteActivity extends AppCompatActivity {
         });
 
 
-
+        mDbOpenHelper = new DBOpenHelper(this);
+        mDbOpenHelper.open();
         // favorite_recipe_id 가져오기
 
         alist = new ArrayList<ListViewItem>();
@@ -91,17 +92,30 @@ public class FavoriteActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Intent it = new Intent(FavoriteActivity.this, .class);   // 인텐트 처리
+
                 mCursor = mDbOpenHelper.getFavAllColumns();
-                //mCursor.moveToPosition(rep_index);
-                //it.putExtra("it_listData", datas[position]);
-                //startActivity(it);
+                mCursor.moveToPosition(i);
+
+                String idRecipe = mCursor.getString(mCursor.getColumnIndex("recipe_id"));
+                //long idRecipe_int = Integer.parseInt(idRecipe);
+                mCursor.close();
+                Intent it = new Intent(getApplicationContext(), FavoriteContentActivity.class);   // 인텐트 처리
+
+                it.putExtra("it_idRecipe", idRecipe);
+                startActivity(it);
             }
         });
 
-        mDbOpenHelper = new DBOpenHelper(this);
-        mDbOpenHelper.open();
 
+
+        //String name, String ingre, String desc, String com, String image
+        /*for(int i = 0 ; i <15; i++) {
+            mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","comment","empty image");
+        }
+        for(int i = 0 ; i <3; i++) {
+            mDbOpenHelper.insertColumn(i);
+        }*/
+        mDbOpenHelper.deleteFavColumn(1);
 
         mCursor = null;
         mCursor = mDbOpenHelper.getFavAllColumns();
@@ -126,10 +140,11 @@ public class FavoriteActivity extends AppCompatActivity {
                     listViewAdapter.notifyDataSetChanged();
                 }
             }
+            vCursor.close();
         }
 
         mCursor.close();
-        vCursor.close();
+
 
     }
 

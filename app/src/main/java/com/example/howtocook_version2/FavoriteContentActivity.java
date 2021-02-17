@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +26,7 @@ public class FavoriteContentActivity extends AppCompatActivity {
 
     private Cursor vCursor;
 
+    Intent it2 = this.getIntent();
     private String recipe_id;
     private String cook_id;
     private String cook_img;
@@ -32,6 +35,11 @@ public class FavoriteContentActivity extends AppCompatActivity {
     private String cook_desc;
     private String cook_com;
 
+    ImageView vImgage;
+    TextView vName;
+    TextView vIngre;
+    TextView vDesc;
+    TextView vCom;
 
     private ArrayList<ListViewItem> alist;
     private ListViewAdapter listViewAdapter;
@@ -40,11 +48,12 @@ public class FavoriteContentActivity extends AppCompatActivity {
 
     private static final String TAG1 = "TestDataBase";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_view);
-
+/*
         //action bar 없애기
         getSupportActionBar().hide();
 
@@ -73,7 +82,15 @@ public class FavoriteContentActivity extends AppCompatActivity {
 
             }
         });
+        */
 
+
+        recipe_id = it2.getExtras().getString("it_idRecipe");
+
+        vImgage = (ImageView)findViewById(R.id.imageView);
+        vName = (TextView)findViewById(R.id.register_name);
+        vIngre = (TextView)findViewById(R.id.register_ingre);
+        vDesc = (TextView)findViewById(R.id.register_desc);
 
         // favorite_recipe_id 가져오기
         mDbOpenHelper = new DBOpenHelper(this);
@@ -96,12 +113,19 @@ public class FavoriteContentActivity extends AppCompatActivity {
                 cook_com = vCursor.getString(vCursor.getColumnIndex("recipe_com"));
                 cook_img = vCursor.getString(vCursor.getColumnIndex("recipe_image"));
 
+                vName.setText(cook_name);
+                vIngre.setText(cook_ingre);
+                vDesc.setText(cook_desc);
+                //vCom = (TextView)findViewById(R.id.register_com);
 
+                break;
             }
         }
 
 
         vCursor.close();
+
+
 
     }
 
