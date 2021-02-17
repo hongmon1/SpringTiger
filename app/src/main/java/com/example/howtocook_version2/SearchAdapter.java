@@ -6,24 +6,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchAdapter extends BaseAdapter{
     private Context context;
-    private List<String> list;
     private LayoutInflater inflate;
     private ViewHolder viewHolder;
+    private ArrayList<InfoClass> InfoList;//어뎁터에 추가된 데이터를 저장하는 list
 
-    public SearchAdapter(List<String> list, Context context){
-        this.list = list;
+    public SearchAdapter(Context context, ArrayList<InfoClass> list){
+        this.InfoList = list;
         this.context = context;
         this.inflate = LayoutInflater.from(context);
     }
+
     @Override
     public int getCount() {
-        return list.size();
+        return InfoList.size();
     }
 
     @Override
@@ -38,18 +41,20 @@ public class SearchAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        if(convertView == null){
-            convertView = inflate.inflate(R.layout.activity_listview,null);
+        final Context context = viewGroup.getContext();
 
-            viewHolder = new ViewHolder();
-            viewHolder.label = (TextView) convertView.findViewById(R.id.label);
-
-            convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder)convertView.getTag();
+        if(convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.activity_listview, null);
         }
-        // 리스트에 있는 데이터를 리스트뷰 셀에 올려주는 역할
-        viewHolder.label.setText(list.get(position));
+        //화면에 대한 참조
+        TextView textView = convertView.findViewById(R.id.label);
+        //데이터셋에서 position에 위치한 데이터 참조
+        InfoClass infoClass = InfoList.get(position);
+
+        //리스트뷰에 데이터 반영
+        textView.setText(infoClass.get_name());
+
         return convertView;
     }
     class ViewHolder{

@@ -26,4 +26,5 @@ public class InfoClass {
     public void set_name(String name){
         this.name = name;
     }
+
 }
