@@ -65,13 +65,14 @@ public class MyRecipeActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
 
-        //DB 연결
+
         registerBtn=(Button)findViewById(R.id.register_btn);
         idEt=(EditText)findViewById(R.id.register_id);
         nameEt=(EditText)findViewById(R.id.register_name);
         ingreEt=(EditText)findViewById(R.id.register_ingre);
         descEt =(EditText)findViewById(R.id.register_desc);
 
+        //DB 연결
         mDbOpenHelper = new DBOpenHelper(this);
         try {
             mDbOpenHelper.open();
@@ -79,11 +80,12 @@ public class MyRecipeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //레시피 등록
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
-                    Toast.makeText(MyRecipeActivity.this,"버튼눌림", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyRecipeActivity.this,"등록 완료", Toast.LENGTH_SHORT).show();
                     String result;
                     //String id = idEt.getText().toString();
                     String name = nameEt.getText().toString();
@@ -94,6 +96,10 @@ public class MyRecipeActivity extends AppCompatActivity {
                     String image = "비어있는 이미지";
                     mDbOpenHelper.insertColumn(name,ingre, desc, image);
                     doWhileCursorToArray();
+
+                    Intent intent = new Intent(getApplicationContext(),MyRecipeListActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
                 }catch (Exception e){
                     Log.i("DBtest","Error!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 }
