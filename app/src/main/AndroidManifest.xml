@@ -18,6 +18,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".DanbeeActivity"></activity>
         <activity android:name=".MyRecipeActivity" />
+        <activity android:name=".MyRecipeListActivity" />
         <activity android:name=".FavoriteActivity" />
         <activity android:name=".ListViewActivity" />
         <activity android:name=".MainActivity">

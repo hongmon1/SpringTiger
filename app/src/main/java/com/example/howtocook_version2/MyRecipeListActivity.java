@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-class MyRecipeListActivity extends AppCompatActivity {
+public class MyRecipeListActivity extends AppCompatActivity {
 
     private Button home_btn, fav_btn, myrep_btn;
 
@@ -73,8 +73,10 @@ class MyRecipeListActivity extends AppCompatActivity {
             cook_img = mCursor.getString(mCursor.getColumnIndex("myrecipe_img"));
 
             item = new ListViewItem(cook_img,cook_name);
+            listViewAdapter.notifyDataSetChanged();
         }
 
+        mCursor.close();
     }
 
     protected void onPause(){
