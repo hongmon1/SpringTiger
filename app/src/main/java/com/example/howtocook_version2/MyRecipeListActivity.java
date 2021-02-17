@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +43,9 @@ public class MyRecipeListActivity extends AppCompatActivity {
         listViewAdapter = new ListViewAdapter(this,alist);
         listView = findViewById(R.id.listview);
         listView.setAdapter(listViewAdapter);
+
+        mDbOpenHelper = new DBOpenHelper(this);
+        mDbOpenHelper.open();
 
         myrep_btn.setEnabled(false);
         fav_btn.setOnClickListener(new View.OnClickListener() {
