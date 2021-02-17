@@ -78,13 +78,14 @@ public class DBOpenHelper {
     }
 
     //recipe table에 column 삽입
-    public long insertColumn(String name, String ingre, String desc, String com, String image){
+    public long insertColumn(String name, String ingre, String desc, String com, String image, String cate){
         ContentValues values = new ContentValues();
         values.put(Databases.CreateRep.RECIPE_NAME,name);
         values.put(Databases.CreateRep.RECIPE_INGRE,ingre);
         values.put(Databases.CreateRep.RECIPE_DESC,desc);
         values.put(Databases.CreateRep.RECIPE_COM,com);
         values.put(Databases.CreateRep.RECIPE_IMAGE,image);
+        values.put(Databases.CreateRep.RECIPE_CATE,cate);
         return mDB.insert(Databases.CreateRep._TALBLENAME,null,values);
     }
 
