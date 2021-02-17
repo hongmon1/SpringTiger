@@ -51,6 +51,15 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
     private static final int PICK_FROM_ALBUM = 1;
     private static final int PICK_FROM_CAMERA = 2;
 
+    static final int REQUEST_TAKE_PHOTO = 2001;
+    static final int REQUEST_TAKE_ALBUM = 2002;
+    static final int REQUEST_IMAGE_CROP = 2003;
+
+    String mCurrentPhotoPath;
+    Uri photoURI, albumURI;
+    boolean isAlbum = false;
+
+
     private File tempFile;
     ImageView mImageView;
     Button GalleryBtn;
@@ -156,8 +165,9 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(MyRecipeRegisterActivity.this,new String[]{Manifest.permission.CAMERA},0);
                 }
                 else {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent,PICK_FROM_CAMERA);
+                    //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    //startActivityForResult(intent,PICK_FROM_CAMERA);
+
                 }
                 //tedPermission();
                 //if(isPermission)  takePhoto();

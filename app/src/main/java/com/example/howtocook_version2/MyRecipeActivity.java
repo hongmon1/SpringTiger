@@ -49,6 +49,7 @@ public class MyRecipeActivity extends AppCompatActivity {
         mCursor = null;
         mCursor = mDBOpenHelper.getMyrepAllColumns();
 
+        //intent로 받아온 name으로 myrep 검색, 결과 뿌려줌
         while(mCursor.moveToNext()){
             if(mCursor.getString(mCursor.getColumnIndex("myrecipe_name")).equals(c_name)){
                 name = mCursor.getString(mCursor.getColumnIndex("myrecipe_name"));
@@ -64,6 +65,7 @@ public class MyRecipeActivity extends AppCompatActivity {
         }
     }
 
+    //String을 Bitmap으로 변환
     public static Bitmap StringToBitmap(String encodedString) {
         try {
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);

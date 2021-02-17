@@ -55,6 +55,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
         mDbOpenHelper = new DBOpenHelper(this);
         mDbOpenHelper.open();
 
+        //하단 탭 버튼 세팅
         myrep_btn.setEnabled(false);
         fav_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +81,8 @@ public class MyRecipeListActivity extends AppCompatActivity {
         myrec_add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MyRecipeRegisterActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), MyRecipeRegisterActivity.class);
+                Intent intent = new Intent(getApplicationContext(),TestActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
             }
@@ -119,6 +121,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
             }
         });
 
+        //클릭 시 MyRecipeActivity로 전환
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -133,6 +136,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.right_to_left,R.anim.left_to_right);
     }
 
+    //뒤로가기 시 업데이트 필요?
     protected void onResume(){
         super.onResume();
         alist.clear();
@@ -201,6 +205,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
 
     public void moveToRecipe(int i){
 
+        //name으로 검색하기 위해 해당 위치 레시피 이름 검색
         mCursor = mDbOpenHelper.getMyrepAllColumns();
         //리스트뷰 위치로 Cursor 이동
         mCursor.moveToPosition(i);
@@ -209,6 +214,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
 
         mCursor.close();
 
+        //intent에 넘겨줌
         Intent intent = new Intent(getApplicationContext(), MyRecipeActivity.class);
         intent.putExtra("name",intent_name);
         Log.d("test",intent_name);
