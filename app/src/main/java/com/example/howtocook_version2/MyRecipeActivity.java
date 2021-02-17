@@ -112,9 +112,11 @@ public class MyRecipeActivity extends AppCompatActivity {
                     String name = nameEt.getText().toString();
                     String ingre = ingreEt.getText().toString();
                     String desc = descEt.getText().toString();
+                    Log.d(TAG1,name+ingre+desc);
                     //String user_id = "1";
                     String image = "비어있는 이미지";
                     mDbOpenHelper.insertColumn(name,ingre, desc, image);
+                    doWhileCursorToArray();
                 }catch (Exception e){
                     Log.i("DBtest","Error!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 }
@@ -399,11 +401,11 @@ public class MyRecipeActivity extends AppCompatActivity {
         while (mCursor.moveToNext()) {
             //InfoClass에 입력된 값을 압력
 
-            Log.d(TAG1, mCursor.getString(mCursor.getColumnIndex("name")));
-            CameraBtn.setText(mCursor.getString(mCursor.getColumnIndex("name")));
-            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("ingre")));
-            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("desc")));
-            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("image")));
+            Log.d(TAG1, mCursor.getString(mCursor.getColumnIndex("myrecipe_name")));
+            CameraBtn.setText(mCursor.getString(mCursor.getColumnIndex("myrecipe_name")));
+            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("myrecipe_ingre")));
+            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("myrecipe_desc")));
+            Log.d(TAG1,mCursor.getString(mCursor.getColumnIndex("myrecipe_image")));
         }
         //Cursor 닫기
         mCursor.close();
