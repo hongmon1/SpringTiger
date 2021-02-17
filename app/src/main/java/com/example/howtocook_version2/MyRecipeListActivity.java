@@ -139,7 +139,7 @@ public class MyRecipeListActivity extends AppCompatActivity {
 
                         String delete = mCursor.getString(1);
 
-                        boolean result = mDbOpenHelper.deleteFavColumn(delete);
+                        boolean result = mDbOpenHelper.deleteMyrepColumn(delete);
 
                         if(result){
                             alist.remove(rep_index);
