@@ -102,6 +102,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 Intent it = new Intent(getApplicationContext(), FavoriteContentActivity.class);   // 인텐트 처리
 
                 it.putExtra("it_idRecipe", idRecipe);
+                //Log.d("","idRedcipe : "+idRecipe);
                 startActivity(it);
             }
         });

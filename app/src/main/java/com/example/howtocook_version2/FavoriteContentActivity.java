@@ -26,7 +26,7 @@ public class FavoriteContentActivity extends AppCompatActivity {
 
     private Cursor vCursor;
 
-    Intent it2 = this.getIntent();
+    Intent it2 ;
     private String recipe_id;
     private String cook_id;
     private String cook_img;
@@ -85,6 +85,7 @@ public class FavoriteContentActivity extends AppCompatActivity {
         */
 
 
+        it2 = this.getIntent();
         recipe_id = it2.getExtras().getString("it_idRecipe");
 
         vImgage = (ImageView)findViewById(R.id.imageView);
