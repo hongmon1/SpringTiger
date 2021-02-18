@@ -4,14 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">'
 
-    <ImageView
-        android:id="@+id/cook_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/cook_name"
-        android:layout_width="300dp"
-        android:layout_height="100dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_rounding">
+            <ImageView
+                android:id="@+id/cook_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:textSize="35dp"
+
+            android:gravity="center_vertical"
+            android:paddingStart="30dp"
+            android:id="@+id/cook_name"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
