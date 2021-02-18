@@ -29,6 +29,7 @@ public class CateListActivity extends AppCompatActivity {
     private String cook_img;
     private String cook_name;
     private String cook_cate;
+    private String cook_id;
 
 
     private ArrayList<ListViewItem> alist;
@@ -47,6 +48,7 @@ public class CateListActivity extends AppCompatActivity {
 
         it2 = this.getIntent();
         cate_id = it2.getExtras().getString("it_idRecipe");
+        Log.d("dbTest", cate_id);
         //action bar 없애기
         getSupportActionBar().hide();
 
@@ -92,25 +94,18 @@ public class CateListActivity extends AppCompatActivity {
         listView = findViewById(R.id.listview);
         listView.setAdapter(listViewAdapter);
 
-        /*
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String foodName = autoFoodName.getText().toString();
-                String foodId = "null";
-                for(int i =0; i< list.size(); i++){
-                    if(list.get(i).equals(foodName)){
-                        foodId = id_list.get(i);
-                        break;
-                    }
-                }
+                String foodId= id_list.get(i);
                 Intent intent = new Intent(CateListActivity.this, SearchContentActivity.class);
                 intent.putExtra("it_idRecipe", foodId);
                 startActivity(intent);
             }
         });
-        */
+
 
         //String name, String ingre, String desc, String com, String image
         /*for(int i = 0 ; i <15; i++) {
@@ -128,12 +123,16 @@ public class CateListActivity extends AppCompatActivity {
         while (mCursor.moveToNext()) {
             //recipe_id = mCursor.getString(mCursor.getColumnIndex("recipe_id"));
             //Log.d("dbTest", recipe_id);
-            cook_cate = mCursor.getString(mCursor.getColumnIndex("recipe_cate"));
+            cook_cate = mCursor.getString(mCursor.getColumnIndex("recipe_com"));
             cook_name = mCursor.getString(mCursor.getColumnIndex("recipe_name"));
             cook_img = mCursor.getString(mCursor.getColumnIndex("recipe_image"));
+            cook_id = mCursor.getString(mCursor.getColumnIndex("_id"));
 
-            //Log.d("dbTest", cook_name);
+            Log.d("dbTest", "cook name : "+cook_name);
+            Log.d("dbTest", "cate id : "+cook_cate);
             if (cate_id.equals(cook_cate)) {
+                id_list.add(cook_id);
+
                 item = new ListViewItem(cook_img, cook_name);
                 alist.add(item);
                 listViewAdapter.notifyDataSetChanged();

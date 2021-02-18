@@ -108,11 +108,21 @@ public class MainActivity extends AppCompatActivity {
 
         mDbOpenHelper = new DBOpenHelper(this);
         mDbOpenHelper.open();
-/*
-        for(int i = 15 ; i <30; i++) {
-            mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","comment","empty image");
+        /*
+        for(int i = 0 ; i <30; i++) {
+            mDbOpenHelper.deleteRepColumn(i);
         }
 */
+        mDbOpenHelper.deleteRepColumn(30);
+
+        for(int i = 0 ; i <15; i++) {
+            mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","1","empty image");
+        }
+        for(int i = 15 ; i <30; i++) {
+            mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","2","empty image");
+        }
+
+
         list = new ArrayList<String>();
         id_list = new ArrayList<String>();
         settingList(list, id_list);
@@ -151,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CateListActivity.class);
                 intent.putExtra("it_idRecipe", "1");
                 startActivity(intent);
 
