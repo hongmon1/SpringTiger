@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -34,6 +35,7 @@ public class SearchActivity extends AppCompatActivity {
     private SearchAdapter adapter;
     private DBOpenHelper mDbOpenHelper;
     private Cursor mCursor;
+    private List idList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

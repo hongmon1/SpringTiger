@@ -84,66 +84,72 @@ public class SearchContentActivity extends AppCompatActivity {
 
         it2 = this.getIntent();
         recipe_id = it2.getExtras().getString("it_idRecipe");
+        Log.d("id","recipe id 는 "+recipe_id);
 
-        vImgage = (ImageView)findViewById(R.id.imageView);
-        vName = (TextView)findViewById(R.id.register_name);
-        vIngre = (TextView)findViewById(R.id.register_ingre);
-        vDesc = (TextView)findViewById(R.id.register_desc);
-        fav_add_btn = (Button)findViewById(R.id.fav_add_btn);
+        vImgage = (ImageView) findViewById(R.id.imageView);
+        vName = (TextView) findViewById(R.id.register_name);
+        vIngre = (TextView) findViewById(R.id.register_ingre);
+        vDesc = (TextView) findViewById(R.id.register_desc);
+        fav_add_btn = (Button) findViewById(R.id.fav_add_btn);
 
-
-        // favorite_recipe_id 가져오기
-        mDbOpenHelper = new DBOpenHelper(this);
-        mDbOpenHelper.open();
-
-
-        vCursor = null;
-        vCursor = mDbOpenHelper.getRepAllColumns();
-
-        while (vCursor.moveToNext()) {
-
-            cook_id = vCursor.getString(vCursor.getColumnIndex("_id"));
-
-
-            //Log.d("dbTest", cook_name);
-            if (cook_id.equals(recipe_id)) {
-                cook_name = vCursor.getString(vCursor.getColumnIndex("recipe_name"));
-                cook_ingre = vCursor.getString(vCursor.getColumnIndex("recipe_ingre"));
-                cook_desc = vCursor.getString(vCursor.getColumnIndex("recipe_desc"));
-                cook_com = vCursor.getString(vCursor.getColumnIndex("recipe_com"));
-                cook_img = vCursor.getString(vCursor.getColumnIndex("recipe_image"));
-
-                vName.setText(cook_name);
-                vIngre.setText(cook_ingre);
-                vDesc.setText(cook_desc);
-                vImgage.setImageBitmap(StringToBitmap(cook_img));
-                //vCom = (TextView)findViewById(R.id.register_com);
-                //imageView.setImageBitmap(StringToBitmap(img));
-                break;
-            }
+        if(recipe_id.equals("null")){
+            vName.setText("해당 요리레시피 없음");
         }
+        else {
 
 
-        vCursor.close();
-        check=false;
 
-        fav_add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (check == false) {
-                    mDbOpenHelper.insertColumn(Integer.parseInt(recipe_id));
-                    Toast.makeText(getApplicationContext(), "즐겨찾기 추가", Toast.LENGTH_SHORT).show();
-                    check = true;
-                }
-                else{
-                    mDbOpenHelper.deleteFavColumn(Integer.parseInt(recipe_id),"dd");
-                    Toast.makeText(getApplicationContext(), "즐겨찾기 취소", Toast.LENGTH_SHORT).show();
-                    check = false;
+            // favorite_recipe_id 가져오기
+            mDbOpenHelper = new DBOpenHelper(this);
+            mDbOpenHelper.open();
+
+
+            vCursor = null;
+            vCursor = mDbOpenHelper.getRepAllColumns();
+
+            while (vCursor.moveToNext()) {
+
+                cook_id = vCursor.getString(vCursor.getColumnIndex("_id"));
+
+
+                //Log.d("dbTest", cook_name);
+                if (cook_id.equals(recipe_id)) {
+                    cook_name = vCursor.getString(vCursor.getColumnIndex("recipe_name"));
+                    cook_ingre = vCursor.getString(vCursor.getColumnIndex("recipe_ingre"));
+                    cook_desc = vCursor.getString(vCursor.getColumnIndex("recipe_desc"));
+                    cook_com = vCursor.getString(vCursor.getColumnIndex("recipe_com"));
+                    cook_img = vCursor.getString(vCursor.getColumnIndex("recipe_image"));
+
+                    vName.setText(cook_name);
+                    vIngre.setText(cook_ingre);
+                    vDesc.setText(cook_desc);
+                    vImgage.setImageBitmap(StringToBitmap(cook_img));
+                    //vCom = (TextView)findViewById(R.id.register_com);
+                    //imageView.setImageBitmap(StringToBitmap(img));
+                    break;
                 }
             }
-        });
 
 
+            vCursor.close();
+            check = false;
+
+            fav_add_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (check == false) {
+                        mDbOpenHelper.insertColumn(Integer.parseInt(recipe_id));
+                        Toast.makeText(getApplicationContext(), "즐겨찾기 추가", Toast.LENGTH_SHORT).show();
+                        check = true;
+                    } else {
+                        mDbOpenHelper.deleteFavColumn(Integer.parseInt(recipe_id), "dd");
+                        Toast.makeText(getApplicationContext(), "즐겨찾기 취소", Toast.LENGTH_SHORT).show();
+                        check = false;
+                    }
+                }
+            });
+
+        }
     }
 
     protected void onPause() {
