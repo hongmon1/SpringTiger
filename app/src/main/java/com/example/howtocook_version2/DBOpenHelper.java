@@ -2,16 +2,23 @@ package com.example.howtocook_version2;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 //https://tony-programming.tistory.com/entry/Android-데이터베이스-사용법
 //참고한 사이트
 
 public class DBOpenHelper {
     private static final String DATABASE_NAME="omona.db";
+
     private static final int DATABASE_VERSION = 2;
     public static SQLiteDatabase mDB;
     private DatabaseHelper mDBHelper;
@@ -23,6 +30,7 @@ public class DBOpenHelper {
                               SQLiteDatabase.CursorFactory factory, int version) {
             super(context, name, factory, version);
         }
+
 
         // 최초 DB를 만들때 한번만 호출된다.
         @Override
@@ -78,13 +86,14 @@ public class DBOpenHelper {
     }
 
     //recipe table에 column 삽입
-    public long insertColumn(String name, String ingre, String desc, String com, String image){
+    public long insertColumn(String name, String ingre, String desc, String com, String image, String cate){
         ContentValues values = new ContentValues();
         values.put(Databases.CreateRep.RECIPE_NAME,name);
         values.put(Databases.CreateRep.RECIPE_INGRE,ingre);
         values.put(Databases.CreateRep.RECIPE_DESC,desc);
         values.put(Databases.CreateRep.RECIPE_COM,com);
         values.put(Databases.CreateRep.RECIPE_IMAGE,image);
+        values.put(Databases.CreateRep.RECIPE_CATE,cate);
         return mDB.insert(Databases.CreateRep._TALBLENAME,null,values);
     }
 
@@ -130,5 +139,10 @@ public class DBOpenHelper {
     public Cursor getRepAllColumns(){
         return mDB.query(Databases.CreateRep._TALBLENAME,null,null,null,null,null,null);
     }
+
+
+
+
+
 
 }
