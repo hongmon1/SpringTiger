@@ -78,7 +78,7 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
 
 
         registerBtn=(Button)findViewById(R.id.register_btn);
-        idEt=(EditText)findViewById(R.id.register_id);
+        //idEt=(EditText)findViewById(R.id.register_id);
         nameEt=(EditText)findViewById(R.id.register_name);
         ingreEt=(EditText)findViewById(R.id.register_ingre);
         descEt =(EditText)findViewById(R.id.register_desc);
