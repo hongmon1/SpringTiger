@@ -37,10 +37,10 @@ class Test_Activity extends AppCompatActivity {
         mDbOpenHelper = new DBOpenHelper(this);
         mDbOpenHelper.open();
 
-        for(int i = 15 ; i <30; i++) {
+        /*for(int i = 15 ; i <30; i++) {
             mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","comment","empty image");
         }
-
+*/
         list = new ArrayList<String>();
         settingList(list);
 
