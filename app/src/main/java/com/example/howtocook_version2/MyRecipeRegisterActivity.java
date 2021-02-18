@@ -126,6 +126,7 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
         //갤러리 연동
         //tedPermission();
 
+        /*
         //파일 읽기 권한 확인
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
@@ -139,7 +140,9 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
         }
         else{
             //Toast.makeText(this,"권한 모두 허용", Toast.LENGTH_SHORT).show();
-        }
+        }*/
+
+        checkSelfPermission();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -190,10 +193,44 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
     // 권한 요청
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
 
+        //}
+        if(requestCode == 1){
+            int length = permissions.length;
+            for(int i = 0; i<length;i++){
+                if(grantResults[i]==PackageManager.PERMISSION_GRANTED){
+                    //agree
+                }
+            }
         }
+    }
+
+    public void checkSelfPermission(){
+        String temp = "";
+
+        //파일 읽기 권한 확인
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
+        {
+            temp += Manifest.permission.READ_EXTERNAL_STORAGE+" ";
+        }
+        //파일 쓰기 권한 확인
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE+" ";
+        }
+
+        if(TextUtils.isEmpty(temp)==false){
+            //권한 요청
+            ActivityCompat.requestPermissions(this,temp.trim().split(" "),1);
+        }
+        else{
+            //모두 허용 상태
+        }
+
+
     }
 
     @Override

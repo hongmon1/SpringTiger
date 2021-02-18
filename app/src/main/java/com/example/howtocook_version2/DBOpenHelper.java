@@ -19,7 +19,7 @@ import java.io.InputStream;
 public class DBOpenHelper {
     private static final String DATABASE_NAME="omona.db";
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     public static SQLiteDatabase mDB;
     private DatabaseHelper mDBHelper;
     private Context mCtx;

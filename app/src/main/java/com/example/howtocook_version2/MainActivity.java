@@ -1,11 +1,15 @@
 package com.example.howtocook_version2;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -113,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             mDbOpenHelper.deleteRepColumn(i);
         }
 */
-        mDbOpenHelper.deleteRepColumn(30);
+        //mDbOpenHelper.deleteRepColumn(30);
 
         /*
         for(int i = 0 ; i <15; i++) {
@@ -139,17 +143,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String foodName = autoFoodName.getText().toString();
-                String foodId = "null";
+                String foodId = "";
                 for(int i =0; i< list.size(); i++){
                     if(list.get(i).equals(foodName)){
                         foodId = id_list.get(i);
                         break;
                     }
                 }
+                Log.d("testsearch",foodId);
+                //검색창이 비지 않았으면
                 if(!foodName.isEmpty()){
-                    Intent intent = new Intent(MainActivity.this, SearchContentActivity.class);
-                    intent.putExtra("it_idRecipe", foodId);
-                    startActivity(intent);
+                    if(foodId.isEmpty()){
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                        dialog.setTitle("확인").setMessage("검색 결과가 없습니다").setCancelable(true).
+                            setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            });
+                        AlertDialog alert = dialog.create();
+                        alert.show();
+                    }
+                    else {
+                        Intent intent = new Intent(MainActivity.this, SearchContentActivity.class);
+                        intent.putExtra("it_idRecipe", foodId);
+                        startActivity(intent);
+                    }
                 }
 
             }
