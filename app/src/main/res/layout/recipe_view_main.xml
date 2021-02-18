@@ -4,115 +4,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_bright">
+    android:background="#ffffff">
 
-    <TableLayout
+    <LinearLayout
+        android:padding="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
+                android:layout_weight="5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="사진"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="요리명"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/register_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="ddd"
+                    android:textSize="35sp"
+                   />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="150dp"
-                android:layout_weight="8"
+                android:layout_weight="4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-        </TableRow>
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:layout_weight="1"
-                android:text="요리이름"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            <TextView
-                android:id="@+id/register_name"
-                android:layout_width="wrap_content"
+                android:layout_width="15dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="8" />
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/fav_add_btn"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:background="#00ffffff"
+                    android:drawableTop="@drawable/ic_assignment_black_24dp"
+                    android:text="즐겨찾기" />
 
-        </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="재료"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/register_ingre"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="재료"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                <TextView
+                    android:id="@+id/register_ingre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:textSize="35sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="8" />
+                android:orientation="horizontal"
 
-        </TableRow>
+                >
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="내 레시피"
+                    android:layout_marginBottom="20dp"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="나만의 레시피"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            <TextView
-                android:id="@+id/register_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="8" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <Button
-                android:id="@+id/fav_add_btn"
-                style="?android:borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00ffffff"
-                android:drawableTop="@drawable/ic_assignment_black_24dp"
-                android:text="즐겨찾기" />
-
-        </TableRow>
+                <TextView
+                    android:id="@+id/register_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:text="ddddd"
+                    android:textSize="35sp"/>
 
 
 
-    </TableLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
 
 
 

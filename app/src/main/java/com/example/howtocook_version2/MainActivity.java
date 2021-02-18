@@ -115,12 +115,14 @@ public class MainActivity extends AppCompatActivity {
 */
         mDbOpenHelper.deleteRepColumn(30);
 
+        /*
         for(int i = 0 ; i <15; i++) {
             mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","1","empty image");
         }
         for(int i = 15 ; i <30; i++) {
             mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","2","empty image");
         }
+*/
 
 
         list = new ArrayList<String>();
