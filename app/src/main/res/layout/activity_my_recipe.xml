@@ -52,12 +52,17 @@
                 <Button
                     android:id="@+id/btnCamera"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_rounding"
+                    android:foreground="@drawable/ic_camera_alt_black_24dp"/>
+
                 <Button
 
                     android:id="@+id/btnGallery"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_rounding"
+                    android:foreground="@drawable/ic_photo_library_black_24dp"/>
 
             </LinearLayout>
 
@@ -119,10 +124,11 @@
 
             </LinearLayout>
             <Button
+                android:text="등록"
                 android:id="@+id/register_btn"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_width="0dp"
-                android:layout_height="30dp" />
+                android:layout_height="50dp" />
         </LinearLayout>
 
     </LinearLayout>
