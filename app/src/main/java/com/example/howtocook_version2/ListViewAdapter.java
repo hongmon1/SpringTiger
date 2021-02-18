@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 //https://recipes4dev.tistory.com/43
 public class ListViewAdapter extends BaseAdapter {
 
+    static Bitmap bm = null;
+    static Bitmap imgBitmap = null;
+    static HttpURLConnection conn = null;
+    static BufferedInputStream bis = null;
     //adapter에 추가된 데이터를 저장하기 위한 arraylist
     private ArrayList<ListViewItem> listViewItemArrayList = new ArrayList<ListViewItem>();
 
@@ -54,6 +65,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         //아이템 내 각 위젯에 데이터 반영
         imageView.setImageBitmap(StringToBitmap(listViewItem.getImg()));
+        //imageView.setImageBitmap(getImageFromURL(listViewItem.getImg()));
         textView.setText(listViewItem.getName());
 
         return convertView;
@@ -74,14 +86,48 @@ public class ListViewAdapter extends BaseAdapter {
     //
 
 
-    public static Bitmap StringToBitmap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
+
+    //URL(string으로 주어짐)을 Bitmap으로 변환
+    public static Bitmap StringToBitmap(String img) {
+        final String imageURL = img;
+
+        try{
+            AsyncTask<String,Void,Bitmap> asyncTask = new AsyncTask<String, Void, Bitmap>() {
+                @Override
+                protected Bitmap doInBackground(String... strings) {
+                    try
+                    {
+                        Log.d("testImg","in translate");
+                        URL url = new URL(imageURL);
+                        conn = (HttpURLConnection)url.openConnection();
+                        conn.connect();
+
+                        int nSize = conn.getContentLength();
+                        bis = new BufferedInputStream(conn.getInputStream(), nSize);
+                        imgBitmap = BitmapFactory.decodeStream(bis);
+                        Log.d("testImg",imgBitmap.toString());
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    } finally{
+                        if(bis != null) {
+                            try {bis.close();} catch (IOException e) {}
+                        }
+                        if(conn != null ) {
+                            conn.disconnect();
+                        }
+                    }
+                    return  imgBitmap;
+                }
+            };
+
+            Bitmap bm = asyncTask.execute(imageURL).get();
+        }catch (Exception e){
+
         }
-    }
+
+        return imgBitmap;
+
+        }
+
 }

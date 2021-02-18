@@ -138,7 +138,7 @@ public class MyRecipeRegisterActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, temp.trim().split(" "),1);
         }
         else{
-            Toast.makeText(this,"권한 모두 허용", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"권한 모두 허용", Toast.LENGTH_SHORT).show();
         }
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

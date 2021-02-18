@@ -77,6 +77,9 @@ public class FavoriteActivity extends AppCompatActivity {
         mDbOpenHelper = new DBOpenHelper(this);
         mDbOpenHelper.open();
         // favorite_recipe_id 가져오기
+        //String name, String ingre, String desc, String com, String image
+        mDbOpenHelper.insertColumn("떡볶이","떡","1.떡을 삶는다","comment","https://recipe1.ezmember.co.kr/cache/recipe/2016/06/08/24c312f82313faaf1e4d5ef98761efcb1.jpg");
+
 
         alist = new ArrayList<ListViewItem>();
         listViewAdapter = new ListViewAdapter(this,alist);
@@ -109,15 +112,13 @@ public class FavoriteActivity extends AppCompatActivity {
 
 
 
-        //String name, String ingre, String desc, String com, String image
-        /*for(int i = 0 ; i <15; i++) {
-            mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","comment","empty image");
-        }
+
+        /*
         for(int i = 0 ; i <3; i++) {
             mDbOpenHelper.insertColumn(i);
-        }*/
+        }
         //mDbOpenHelper.deleteFavColumn(1);
-
+*/
         mCursor = null;
         mCursor = mDbOpenHelper.getFavAllColumns();
         Log.d("dbTest", "fav Count = " + mCursor.getCount());

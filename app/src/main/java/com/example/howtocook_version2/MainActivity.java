@@ -123,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
             mDbOpenHelper.insertColumn("떡볶이"+i,"떡","1.떡을 삶는다","2","empty image");
         }
 */
+        //mDbOpenHelper.insertColumn("떡볶이","떡","1.떡을 삶는다","1","https://recipe1.ezmember.co.kr/cache/recipe/2016/06/08/24c312f82313faaf1e4d5ef98761efcb1.jpg");
+        //mDbOpenHelper.insertColumn("떡볶이","떡","1.떡을 삶는다","1","https://recipe1.ezmember.co.kr/cache/recipe/2016/06/08/24c312f82313faaf1e4d5ef98761efcb1.jpg");
+
 
 
         list = new ArrayList<String>();
@@ -143,9 +146,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                Intent intent = new Intent(MainActivity.this, SearchContentActivity.class);
-                intent.putExtra("it_idRecipe", foodId);
-                startActivity(intent);
+                if(!foodName.isEmpty()){
+                    Intent intent = new Intent(MainActivity.this, SearchContentActivity.class);
+                    intent.putExtra("it_idRecipe", foodId);
+                    startActivity(intent);
+                }
 
             }
         });

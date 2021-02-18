@@ -59,7 +59,14 @@ public class CateListActivity extends AppCompatActivity {
         myrep_btn = findViewById(R.id.myrep_btn);
         //editText = findViewById(R.id.editText); //검색창
 
-        home_btn.setEnabled(false);
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
+            }
+        });
         fav_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

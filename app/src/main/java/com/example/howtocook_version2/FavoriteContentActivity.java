@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -19,11 +20,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class FavoriteContentActivity extends AppCompatActivity {
     Button home_btn, fav_btn, myrep_btn;
 
+    static Bitmap imgBitmap = null;
+    static HttpURLConnection conn = null;
+    static BufferedInputStream bis = null;
 
     private DBOpenHelper mDbOpenHelper;
 
@@ -139,15 +147,47 @@ public class FavoriteContentActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
     }
 
-    public static Bitmap StringToBitmap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
+    //URL(string으로 주어짐)을 Bitmap으로 변환
+    public static Bitmap StringToBitmap(String img) {
+        final String imageURL = img;
+
+        try{
+            AsyncTask<String,Void,Bitmap> asyncTask = new AsyncTask<String, Void, Bitmap>() {
+                @Override
+                protected Bitmap doInBackground(String... strings) {
+                    try
+                    {
+                        Log.d("testImg","in translate");
+                        URL url = new URL(imageURL);
+                        conn = (HttpURLConnection)url.openConnection();
+                        conn.connect();
+
+                        int nSize = conn.getContentLength();
+                        bis = new BufferedInputStream(conn.getInputStream(), nSize);
+                        imgBitmap = BitmapFactory.decodeStream(bis);
+                        Log.d("testImg",imgBitmap.toString());
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    } finally{
+                        if(bis != null) {
+                            try {bis.close();} catch (IOException e) {}
+                        }
+                        if(conn != null ) {
+                            conn.disconnect();
+                        }
+                    }
+                    return  imgBitmap;
+                }
+            };
+
+            Bitmap bm = asyncTask.execute(imageURL).get();
+        }catch (Exception e){
+
         }
+
+        return imgBitmap;
+
     }
 
 
