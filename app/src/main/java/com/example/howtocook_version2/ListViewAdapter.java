@@ -45,6 +45,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         //화면에 표시될 View로부터 위젯에 대한 참조 획득
         ImageView imageView = convertView.findViewById(R.id.cook_img);
+        imageView.setClipToOutline(true);
 
         TextView textView = convertView.findViewById(R.id.cook_name);
 
