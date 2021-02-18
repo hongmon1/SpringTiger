@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
     String food_name;
     String food_id;
 
+    ImageButton button_cate1;
+    ImageButton button_cate2;
+    ImageButton button_cate3;
+    ImageButton button_cate4;
+    ImageButton button_cate5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +133,70 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(MainActivity.this, SearchContentActivity.class);
                 intent.putExtra("it_idRecipe", foodId);
+                startActivity(intent);
+
+            }
+        });
+
+
+        //Category
+        button_cate1 = (ImageButton)findViewById(R.id.cate1_btn);
+        button_cate2 = (ImageButton)findViewById(R.id.cate2_btn);
+        button_cate3 = (ImageButton)findViewById(R.id.cate3_btn);
+        button_cate4 = (ImageButton)findViewById(R.id.cate4_btn);
+        button_cate5 = (ImageButton)findViewById(R.id.cate5_btn);
+
+
+        button_cate1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                intent.putExtra("it_idRecipe", "1");
+                startActivity(intent);
+
+            }
+        });
+
+        button_cate2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                intent.putExtra("it_idRecipe", "2");
+                startActivity(intent);
+
+            }
+        });
+
+        button_cate3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                intent.putExtra("it_idRecipe", "3");
+                startActivity(intent);
+
+            }
+        });
+
+        button_cate4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                intent.putExtra("it_idRecipe", "4");
+                startActivity(intent);
+
+            }
+        });
+
+        button_cate5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                intent.putExtra("it_idRecipe", "5");
                 startActivity(intent);
 
             }
