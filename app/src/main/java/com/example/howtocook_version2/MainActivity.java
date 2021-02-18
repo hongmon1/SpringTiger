@@ -2,9 +2,13 @@ package com.example.howtocook_version2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton danbee_btn;
 
     private DBOpenHelper mDbOpenHelper;
-
+    private RecipeDBOpenHelper rDBOpenHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +125,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        rDBOpenHelper = new RecipeDBOpenHelper(this);
+        SQLiteDatabase db = rDBOpenHelper.getWritableDatabase();
+        Log.d("testDB",db.toString());
+        Cursor cursor = db.rawQuery("SELECT * FROM recipes",null);
+        String test = cursor.getString(cursor.getColumnIndex("recipe_name"));
+        Log.d("testDB",test);
+
         danbee_btn = findViewById(R.id.danbee_btn);
+
+
         //단비 챗봇 플로팅 버튼
         //클릭시 danbeeactivity로 전환
         danbee_btn.setOnClickListener(new View.OnClickListener() {
