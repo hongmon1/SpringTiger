@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-class CateListActivity extends AppCompatActivity {
+public class CateListActivity extends AppCompatActivity {
     Button home_btn, fav_btn, myrep_btn;
 
 
@@ -39,19 +39,17 @@ class CateListActivity extends AppCompatActivity {
     private List<String> list;
     private List<String> id_list;
 
-
+    Intent it2 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catelist);
 
+        it2 = this.getIntent();
+        cate_id = it2.getExtras().getString("it_idRecipe");
         //action bar 없애기
         getSupportActionBar().hide();
 
-
-        home_btn = findViewById(R.id.home_btn);
-        fav_btn = findViewById(R.id.fav_btn);
-        myrep_btn = findViewById(R.id.myrep_btn);
 
         //하단 탭 버튼 세팅
         home_btn = findViewById(R.id.home_btn);
@@ -77,6 +75,9 @@ class CateListActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
         list = new ArrayList<String>();
         id_list = new ArrayList<String>();

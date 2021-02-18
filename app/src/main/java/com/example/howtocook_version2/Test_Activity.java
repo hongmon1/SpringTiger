@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-class Test_Activity extends AppCompatActivity {
+public class Test_Activity extends AppCompatActivity {
 
     ImageButton button_food;
     AutoCompleteTextView autoFoodName;

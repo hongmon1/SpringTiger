@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
                 intent.putExtra("it_idRecipe", "1");
                 startActivity(intent);
 
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CateListActivity.class);
                 intent.putExtra("it_idRecipe", "2");
                 startActivity(intent);
 
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CateListActivity.class);
                 intent.putExtra("it_idRecipe", "3");
                 startActivity(intent);
 
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CateListActivity.class);
                 intent.putExtra("it_idRecipe", "4");
                 startActivity(intent);
 
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this, CateListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CateListActivity.class);
                 intent.putExtra("it_idRecipe", "5");
                 startActivity(intent);
 

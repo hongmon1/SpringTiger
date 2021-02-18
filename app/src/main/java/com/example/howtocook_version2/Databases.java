@@ -38,7 +38,6 @@ public final class Databases {
         public static final String RECIPE_DESC = "recipe_desc";
         public static final String RECIPE_COM = "recipe_com";
         public static final String RECIPE_IMAGE = "recipe_image";
-        public static final String RECIPE_CATE = "recipe_cate";
         public static final String _CREATE =
                 "create table "+_TALBLENAME+"("
                         +_ID+" integer primary key autoincrement, "
@@ -46,8 +45,7 @@ public final class Databases {
                         +RECIPE_INGRE+" text not null, "
                         +RECIPE_DESC+" text not null, "
                         +RECIPE_COM+" text not null, "
-                        +RECIPE_IMAGE+" char(50), "
-                        +RECIPE_CATE+" text not null);";
+                        +RECIPE_IMAGE+" char(50) );";
 
 
     }
